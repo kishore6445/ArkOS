@@ -121,7 +121,7 @@ export default function HomePage() {
                 {
                   num: "03",
                   title: "You Earn",
-                  desc: "Mission 50 hits target. Your hike is calculated. Transparent. Fair. Real."
+                  desc: "Mission 35 hits target. Your hike is calculated. Transparent. Fair. Real."
                 }
               ].map((item) => (
                 <div key={item.num} className="space-y-4 bg-slate-50 rounded-lg p-8 border border-slate-200">
@@ -143,7 +143,7 @@ export default function HomePage() {
                   Strong execution. Shared growth.
                 </h2>
                 <p className="text-xl text-slate-300">
-                  Mission 50 succeeds because of you. When it succeeds, you grow. That's the alignment.
+                  Mission 35 succeeds because of you. When it succeeds, you grow. That's the alignment.
                 </p>
               </div>
               <div className="grid gap-8 lg:grid-cols-3">
@@ -168,7 +168,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-4xl text-center space-y-12">
             <div className="space-y-4">
               <h2 className="text-5xl font-black text-slate-900">
-                Ready to earn your 50%?
+                Ready to earn your 35%?
               </h2>
               <p className="text-xl text-slate-600">
                 Start here. Define one power move. Show what you're capable of.
