@@ -333,35 +333,3 @@ export default function TeamPowerMovesPage() {
     </div>
   )
 }
-}
-          ) : filteredMembers.length === 0 ? (
-            <Card className="bg-slate-50 border-slate-200">
-              <CardContent className="pt-12 pb-12 text-center">
-                <p className="text-slate-500 font-semibold">No team members found</p>
-                <p className="text-slate-400 text-sm mt-2">Try adjusting your filters</p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredMembers.map((member) => (
-                <UserPowerMoveCard
-                  key={member.user.id}
-                  user={member.user}
-                  stats={member.stats}
-                  onClick={() => handleUserClick(member.user.id)}
-                />
-              ))}
-            </div>
-          )}
-
-          {/* Results Count */}
-          {!isLoading && filteredMembers.length > 0 && (
-            <p className="text-sm text-slate-500 text-center pt-4">
-              Showing {filteredMembers.length} of {teamMembers.length} team members
-            </p>
-          )}
-        </div>
-      </div>
-    </main>
-  )
-}
