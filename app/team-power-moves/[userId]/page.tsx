@@ -337,28 +337,3 @@ export default function UserPowerMoveDetailPage() {
     </main>
   )
 }
-                      <div className="mt-3 space-y-2">
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-500">Progress</span>
-                          <span className="font-bold">{goal.current}%</span>
-                        </div>
-                        <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-green-500 transition-all"
-                            style={{ width: `${goal.current}%` }}
-                          />
-                        </div>
-                        <Badge className={getStatusColor(goal.status)} variant="outline">
-                          {goal.status}
-                        </Badge>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  )
-}
