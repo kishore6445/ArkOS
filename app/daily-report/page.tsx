@@ -85,15 +85,15 @@ export default function DailyReportPage() {
               <h1 className="text-4xl font-black">Daily Performance</h1>
             </div>
             <p className="text-xl text-slate-300">
-              Your daily updates are how we track execution. Every day matters. Every action counts toward Mission 50.
+              Your daily updates are how we track execution. Every day matters. Every action counts toward Mission 35.
             </p>
             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-700">
               <div>
-                <p className="text-sm text-slate-400">Your 50% Hike Depends On</p>
+                <p className="text-sm text-slate-400">Your 35% Hike Depends On</p>
                 <p className="text-2xl font-black text-orange-500">Daily Execution</p>
               </div>
               <div>
-                <p className="text-sm text-slate-400">Mission 50 Tracked By</p>
+                <p className="text-sm text-slate-400">Mission 35 Tracked By</p>
                 <p className="text-2xl font-black text-orange-500">Daily Reports</p>
               </div>
               <div>

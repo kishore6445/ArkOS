@@ -35,9 +35,9 @@ interface DepartmentHealth {
 
 export function CompanyPerformanceAdmin() {
   const currentYear = new Date().getFullYear()
-  const [missionTitle, setMissionTitle] = useState('Onboard 50 Clients')
+  const [missionTitle, setMissionTitle] = useState('Onboard 35 Clients')
   const [missionYear, setMissionYear] = useState(String(currentYear))
-  const [totalTarget, setTotalTarget] = useState('50')
+  const [totalTarget, setTotalTarget] = useState('35')
   const [currentActiveClients, setCurrentActiveClients] = useState('3')
   const [isSavingMission, setIsSavingMission] = useState(false)
 

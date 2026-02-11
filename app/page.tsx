@@ -11,7 +11,7 @@ export default function HomePage() {
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.15em] text-slate-600 font-bold">ArkMedis</p>
-            <p className="text-base font-bold text-slate-900">Mission 50</p>
+            <p className="text-base font-bold text-slate-900">Mission 35</p>
           </div>
         </Link>
         <nav className="flex items-center gap-3">
@@ -34,13 +34,13 @@ export default function HomePage() {
                 <div className="space-y-6">
                   <p className="text-sm uppercase tracking-[0.2em] text-orange-500 font-bold">Your salary growth</p>
                   <h1 className="text-7xl lg:text-8xl font-black leading-tight text-white">
-                    50%
+                    35%
                   </h1>
                   <p className="text-2xl text-slate-300 font-semibold">
-                    When Mission 50 wins.
+                    When Mission 35 wins.
                   </p>
                   <p className="text-lg text-slate-400 leading-relaxed max-w-lg">
-                    Your Power Moves directly impact the mission. Mission succeeds. You earn 50% hike. No politics. No ambiguity.
+                    Your Power Moves directly impact the mission. Mission succeeds. You earn 35% hike. No politics. No ambiguity.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -75,8 +75,8 @@ export default function HomePage() {
                     <div className="flex items-center gap-4">
                       <div className="h-12 w-12 rounded-lg bg-orange-500 flex items-center justify-center text-white font-black text-lg">2</div>
                       <div>
-                        <p className="text-sm text-slate-400">Mission 50 Succeeds</p>
-                        <p className="font-semibold text-white">50 clients across 3 brands</p>
+                        <p className="text-sm text-slate-400">Mission 35 Succeeds</p>
+                        <p className="font-semibold text-white">35 clients across 3 brands</p>
                       </div>
                     </div>
                     <div className="flex justify-center text-slate-500 text-xl">↓</div>
@@ -84,14 +84,14 @@ export default function HomePage() {
                       <div className="h-12 w-12 rounded-lg bg-green-500 flex items-center justify-center text-white font-black text-lg">3</div>
                       <div>
                         <p className="text-sm text-slate-400">You Earn</p>
-                        <p className="font-semibold text-white">Your 50% salary hike</p>
+                        <p className="font-semibold text-white">Your 35% salary hike</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="text-center text-sm text-slate-500 border-t border-slate-800 pt-6">
-                  <p>No ambiguity. Dashboards show the truth.</p>
-                </div>
+            <p className="text-center text-sm text-slate-500 border-t border-slate-800 pt-6">
+              Get 35% Salary Hike when we achieve 35 Clients. No ambiguity. Dashboards show the truth.
+            </p>
               </div>
             </div>
           </div>
@@ -101,8 +101,10 @@ export default function HomePage() {
         <section className="bg-white px-6 py-24">
           <div className="mx-auto max-w-6xl space-y-16">
             <div className="text-center space-y-4">
-              <h2 className="text-5xl font-black text-slate-900">Your role matters</h2>
-              <p className="text-xl text-slate-600">Pick one power move. Execute it. See the impact.</p>
+              <h2 className="text-5xl font-black text-slate-900">Ready to earn your 35%?</h2>
+              <p className="text-xl text-slate-600">
+                Start here. Define one power move. Show what you're capable of.
+              </p>
             </div>
             <div className="grid gap-8 lg:grid-cols-3">
               {[

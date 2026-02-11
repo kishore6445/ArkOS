@@ -28,8 +28,8 @@ export function CompanyPerformance() {
   ])
 
   const [missionData, setMissionData] = useState({
-    missionTitle: 'Onboard 50 Clients',
-    totalTarget: 50,
+    missionTitle: 'Onboard 35 Clients',
+    totalTarget: 35,
     currentTargetAchieved: 3,
   })
 
@@ -210,7 +210,7 @@ export function CompanyPerformance() {
                     Leads exist, but follow-up consistency and closure rate are weak. This is the bottleneck.
                   </p>
                   <p className="text-sm text-red-700">
-                    <strong>Impact:</strong> Directly affects Mission 50 progress and Q1 baseline establishment.
+                    <strong>Impact:</strong> Directly affects Mission 35 progress and Q1 baseline establishment.
                   </p>
                 </div>
               </div>
