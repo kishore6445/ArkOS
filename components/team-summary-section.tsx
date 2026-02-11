@@ -5,27 +5,70 @@ import { Badge } from "@/components/ui/badge"
 import { Users, Target, TrendingUp, AlertCircle } from "lucide-react"
 import { COMPANY_MISSION } from "@/lib/mission-context"
 
-interface TeamSummarySectionProps {
-  totalMembers: number
-  onTrackCount: number
-  atRiskCount: number
-  behindCount: number
-  averageCompletion: number
-  departmentStats: Array<{
-    name: string
-    memberCount: number
-    completionPercentage: number
-  }>
+interface AdminUser {
+  id: string
+  name: string
+  email: string
+  role: "super_admin" | "dept_admin" | "member" | "viewer"
+  status: "active" | "invited" | "disabled"
 }
 
-export function TeamSummarySection({
-  totalMembers,
-  onTrackCount,
-  atRiskCount,
-  behindCount,
-  averageCompletion,
-  departmentStats,
-}: TeamSummarySectionProps) {
+interface UserPowerMoveStats {
+  totalPowerMoves: number
+  completedPowerMoves: number
+  completionPercentage: number
+  status: "on-track" | "at-risk" | "behind"
+  lastUpdated: string
+  department?: string
+  goalsStatus: {
+    quantitative: { count: number }
+    qualitative: { count: number }
+    learning: { count: number }
+  }
+}
+
+interface TeamMemberData {
+  user: AdminUser
+  stats: UserPowerMoveStats
+}
+
+interface TeamSummarySectionProps {
+  teamMembers: TeamMemberData[]
+}
+
+export function TeamSummarySection({ teamMembers }: TeamSummarySectionProps) {
+  // Calculate stats from team members
+  const totalMembers = teamMembers.length
+  const onTrackCount = teamMembers.filter((m) => m.stats.status === "on-track").length
+  const atRiskCount = teamMembers.filter((m) => m.stats.status === "at-risk").length
+  const behindCount = teamMembers.filter((m) => m.stats.status === "behind").length
+  const averageCompletion =
+    totalMembers > 0
+      ? Math.round(
+          teamMembers.reduce((sum, m) => sum + m.stats.completionPercentage, 0) / totalMembers,
+        )
+      : 0
+
+  // Calculate department stats
+  const departmentMap = new Map<string, { members: Set<string>; completion: number[] }>()
+  teamMembers.forEach((member) => {
+    const dept = member.stats.department || "marketing"
+    if (!departmentMap.has(dept)) {
+      departmentMap.set(dept, { members: new Set(), completion: [] })
+    }
+    const deptData = departmentMap.get(dept)!
+    deptData.members.add(member.user.id)
+    deptData.completion.push(member.stats.completionPercentage)
+  })
+
+  const departmentStats = Array.from(departmentMap.entries())
+    .map(([name, data]) => ({
+      name: name.charAt(0).toUpperCase() + name.slice(1),
+      memberCount: data.members.size,
+      completionPercentage: Math.round(data.completion.reduce((a, b) => a + b, 0) / data.completion.length),
+    }))
+    .sort((a, b) => b.completionPercentage - a.completionPercentage)
+
   const missionProgress = (COMPANY_MISSION.totalAchieved / COMPANY_MISSION.totalTarget) * 100
 
   return (
