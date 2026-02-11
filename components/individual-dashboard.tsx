@@ -511,8 +511,16 @@ export function IndividualDashboard({
                 <p className='text-sm text-slate-300'>Track your execution, impact, and reward potential</p>
               </div>
 
-              {/* Time period selector - Minimal style */}
-              <div className='mt-2'>
+              {/* Time period selector + Admin nav - Minimal style */}
+              <div className='mt-2 flex items-center gap-3'>
+                {isAdmin && (
+                  <Button 
+                    onClick={() => window.location.href = '/team-power-moves'}
+                    className='bg-orange-600 hover:bg-orange-700 text-white'
+                  >
+                    Team Overview
+                  </Button>
+                )}
                 <Select value={selectedPeriod} onValueChange={(v) => setSelectedPeriod(v as TimePeriod)}>
                   <SelectTrigger className='w-40 bg-slate-700 border-slate-600 text-white'>
                     <Calendar className='h-4 w-4 mr-2 text-slate-300' />
