@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ArrowLeft, CheckCircle2, User } from "lucide-react"
+import { useUser } from "@/lib/user-context"
 
 interface DailyReportFormState {
   powerMovesDone: string
@@ -19,15 +20,8 @@ interface DailyReportFormState {
 
 export default function DailyReportPage() {
   const router = useRouter()
+  const { currentUser, isLoading: isUserLoading } = useUser()
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })
-
-  // Mock user data - in production, fetch from auth context
-  const user = {
-    name: "Sarah Mitchell",
-    role: "Sales",
-    department: "Warrior Systems",
-    image: null, // Placeholder for user photo
-  }
 
   const [formState, setFormState] = useState<DailyReportFormState>({
     powerMovesDone: "",
@@ -40,15 +34,53 @@ export default function DailyReportPage() {
 
   const [submitted, setSubmitted] = useState(false)
 
+  // Get user's department from first assignment (they can have multiple)
+  const userDepartment = currentUser?.assignments?.[0]?.department || "Team"
+  const userBrand = currentUser?.assignments?.[0]?.brand || "Warrior Systems"
+
   const handleSubmit = () => {
     if (!formState.committedCheckbox) return
 
-    console.log("[v0] Daily report submitted:", formState)
+    const reportData = {
+      userId: currentUser?.id,
+      userName: currentUser?.name,
+      email: currentUser?.email,
+      department: userDepartment,
+      brand: userBrand,
+      date: today,
+      ...formState,
+    }
+
+    console.log("[v0] Daily report submitted:", reportData)
     setSubmitted(true)
 
     setTimeout(() => {
       router.push("/dashboard")
     }, 2000)
+  }
+
+  if (isUserLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="h-8 w-8 border-4 border-orange-300 border-t-orange-600 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading your daily report...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md border-red-200 bg-red-50">
+          <CardContent className="pt-8 text-center space-y-4">
+            <p className="text-red-800 font-semibold">Unable to load your profile</p>
+            <Button onClick={() => router.back()}>Go Back</Button>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   if (submitted) {
@@ -84,15 +116,15 @@ export default function DailyReportPage() {
       </header>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* USER IDENTITY SECTION */}
+        {/* USER IDENTITY SECTION - Personal Ownership */}
         <Card className="border-slate-200 bg-white">
           <CardContent className="pt-6">
             <div className="flex items-center gap-6">
-              {/* Photo Placeholder */}
+              {/* Photo Placeholder - Visual Identity */}
               <div className="flex-shrink-0">
                 <div className="h-20 w-20 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center border-2 border-orange-300 flex-shrink-0">
-                  {user.image ? (
-                    <img src={user.image} alt={user.name} className="h-20 w-20 rounded-full object-cover" />
+                  {currentUser.avatar ? (
+                    <img src={currentUser.avatar} alt={currentUser.name} className="h-20 w-20 rounded-full object-cover" />
                   ) : (
                     <User className="h-10 w-10 text-orange-600" />
                   )}
@@ -101,152 +133,141 @@ export default function DailyReportPage() {
 
               {/* User Info */}
               <div className="flex-1">
-                <h2 className="text-2xl font-black text-slate-900">{user.name}</h2>
-                <p className="text-sm text-slate-600 mt-1">{user.role} • {user.department}</p>
-                <p className="text-xs text-slate-500 mt-2">Own your execution. Show your impact.</p>
+                <h2 className="text-2xl font-black text-slate-900">{currentUser.name}</h2>
+                <p className="text-slate-600 font-semibold">
+                  {userDepartment.charAt(0).toUpperCase() + userDepartment.slice(1)} • {userBrand === "warrior-systems" ? "Warrior Systems" : userBrand === "story-marketing" ? "Story Marketing" : "Meta Gurukul"}
+                </p>
+                <p className="text-sm text-slate-500 mt-1">Own your execution. Show your impact.</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* TODAY SECTION */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-black text-slate-900">TODAY</h2>
-
-          {/* Power Moves Done */}
-          <Card className="border-orange-200 bg-white">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base text-slate-900">Power Moves Done</CardTitle>
-              <p className="text-xs text-slate-500 mt-1">What moved revenue / systems / brand?</p>
+        {/* FORM SECTIONS */}
+        <div className="space-y-6">
+          {/* TODAY - Power Moves Done */}
+          <Card className="border-slate-200 bg-white">
+            <CardHeader>
+              <CardTitle className="text-lg">TODAY</CardTitle>
+              <p className="text-sm text-slate-500">Power Moves Done: What moved revenue / systems / brand?</p>
             </CardHeader>
             <CardContent>
               <Textarea
-                placeholder="e.g., 5 client discovery calls • 2 proposals sent • Closed $50K deal"
+                placeholder="E.g., Closed 2 client contracts • Delivered system documentation • Launched social content"
                 value={formState.powerMovesDone}
                 onChange={(e) => setFormState((prev) => ({ ...prev, powerMovesDone: e.target.value }))}
-                maxLength={200}
-                className="border-slate-300 text-slate-900 placeholder-slate-400 focus:border-orange-500 resize-none"
-                rows={2}
+                maxLength={300}
+                className="resize-none text-sm"
+                rows={3}
               />
-              <p className="text-xs text-slate-500 mt-2">{formState.powerMovesDone.length}/200</p>
+              <p className="text-xs text-slate-400 mt-2">{formState.powerMovesDone.length}/300</p>
             </CardContent>
           </Card>
 
           {/* Learning Achieved */}
-          <Card className="border-blue-200 bg-white">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base text-slate-900">Learning Achieved</CardTitle>
-              <p className="text-xs text-slate-500 mt-1">What sharpened your capability?</p>
+          <Card className="border-slate-200 bg-white">
+            <CardHeader>
+              <CardTitle className="text-lg">Learning Achieved</CardTitle>
+              <p className="text-sm text-slate-500">What sharpened your capability?</p>
             </CardHeader>
             <CardContent>
               <Textarea
-                placeholder="e.g., Discovered shorter calls convert better • Learned new sales technique • Improved communication with clients"
+                placeholder="E.g., Discovered X approach converts 40% better • Learned Y from client feedback • Mastered Z tool"
                 value={formState.learningAchieved}
                 onChange={(e) => setFormState((prev) => ({ ...prev, learningAchieved: e.target.value }))}
-                maxLength={200}
-                className="border-slate-300 text-slate-900 placeholder-slate-400 focus:border-blue-500 resize-none"
-                rows={2}
+                maxLength={300}
+                className="resize-none text-sm"
+                rows={3}
               />
-              <p className="text-xs text-slate-500 mt-2">{formState.learningAchieved.length}/200</p>
+              <p className="text-xs text-slate-400 mt-2">{formState.learningAchieved.length}/300</p>
             </CardContent>
           </Card>
 
           {/* Win for Mission 35 */}
-          <Card className="border-green-200 bg-white">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base text-slate-900">Win for Mission 35</CardTitle>
-              <p className="text-xs text-slate-500 mt-1">How did today move us closer to 35 clients?</p>
+          <Card className="border-slate-200 bg-white border-l-4 border-l-green-500">
+            <CardHeader>
+              <CardTitle className="text-lg text-green-700">Win for Mission 35</CardTitle>
+              <p className="text-sm text-slate-500">How did today move us closer to 35 clients?</p>
             </CardHeader>
             <CardContent>
               <Textarea
-                placeholder="e.g., 1 new client onboarded • 2 qualified leads in pipeline • Contract signed"
+                placeholder="E.g., Onboarded 1 new client • Advanced 2 prospects to sales stage • Resolved client concern"
                 value={formState.missionWin}
                 onChange={(e) => setFormState((prev) => ({ ...prev, missionWin: e.target.value }))}
-                maxLength={150}
-                className="border-slate-300 text-slate-900 placeholder-slate-400 focus:border-green-500 resize-none"
-                rows={2}
+                maxLength={300}
+                className="resize-none text-sm"
+                rows={3}
               />
-              <p className="text-xs text-slate-500 mt-2">{formState.missionWin.length}/150</p>
+              <p className="text-xs text-slate-400 mt-2">{formState.missionWin.length}/300</p>
             </CardContent>
           </Card>
-        </div>
 
-        {/* BLOCKER SECTION */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-black text-slate-900">BLOCKER</h2>
-
-          <Card className="border-red-200 bg-white">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base text-slate-900">What Slowed Execution?</CardTitle>
+          {/* BLOCKER */}
+          <Card className="border-slate-200 bg-white">
+            <CardHeader>
+              <CardTitle className="text-lg">BLOCKER</CardTitle>
+              <p className="text-sm text-slate-500">What slowed execution?</p>
             </CardHeader>
             <CardContent>
               <Textarea
-                placeholder="e.g., Waiting on legal approval • Client delayed decision • System outage"
+                placeholder="E.g., Waiting on legal approval • Client delayed decision • Technical issue with system"
                 value={formState.blocker}
                 onChange={(e) => setFormState((prev) => ({ ...prev, blocker: e.target.value }))}
-                maxLength={150}
-                className="border-slate-300 text-slate-900 placeholder-slate-400 focus:border-red-500 resize-none"
+                maxLength={200}
+                className="resize-none text-sm"
                 rows={2}
               />
-              <p className="text-xs text-slate-500 mt-2">{formState.blocker.length}/150</p>
+              <p className="text-xs text-slate-400 mt-2">{formState.blocker.length}/200</p>
             </CardContent>
           </Card>
-        </div>
 
-        {/* TOMORROW SECTION */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-black text-slate-900">TOMORROW</h2>
-
-          <Card className="border-purple-200 bg-white">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base text-slate-900">I Commit To</CardTitle>
-              <p className="text-xs text-slate-500 mt-1">1–3 measurable power moves only</p>
+          {/* TOMORROW - Commitment */}
+          <Card className="border-slate-200 bg-white border-l-4 border-l-orange-500">
+            <CardHeader>
+              <CardTitle className="text-lg text-orange-700">TOMORROW</CardTitle>
+              <p className="text-sm text-slate-500">I commit to: (1–3 measurable power moves only)</p>
             </CardHeader>
             <CardContent>
               <Textarea
-                placeholder="e.g., 5 discovery calls • 3 proposal follow-ups • Close 1 deal"
+                placeholder="E.g., 5 discovery calls • 3 proposal follow-ups • Deliver onboarding docs"
                 value={formState.tomorrowCommitment}
                 onChange={(e) => setFormState((prev) => ({ ...prev, tomorrowCommitment: e.target.value }))}
-                maxLength={150}
-                className="border-slate-300 text-slate-900 placeholder-slate-400 focus:border-purple-500 resize-none"
+                maxLength={250}
+                className="resize-none text-sm"
                 rows={2}
               />
-              <p className="text-xs text-slate-500 mt-2">{formState.tomorrowCommitment.length}/150</p>
+              <p className="text-xs text-slate-400 mt-2">{formState.tomorrowCommitment.length}/250</p>
             </CardContent>
           </Card>
-
-          {/* Commit Checkbox */}
-          <div className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
-            <Checkbox
-              id="commit"
-              checked={formState.committedCheckbox}
-              onCheckedChange={(checked) =>
-                setFormState((prev) => ({ ...prev, committedCheckbox: checked === true }))
-              }
-            />
-            <label htmlFor="commit" className="text-sm font-bold cursor-pointer text-slate-900">
-              I commit to these power moves
-            </label>
-          </div>
         </div>
 
-        {/* SUBMIT BUTTON */}
-        <div className="flex gap-3">
-          <Button
-            onClick={() => router.back()}
-            variant="outline"
-            className="flex-1 border-slate-300 text-slate-700 hover:bg-slate-100"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            disabled={!formState.committedCheckbox}
-            className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold disabled:opacity-50"
-          >
-            Submit Report
-          </Button>
-        </div>
+        {/* COMMITMENT CHECKBOX & SUBMIT */}
+        <Card className="border-orange-200 bg-orange-50">
+          <CardContent className="pt-6 space-y-4">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="commit"
+                checked={formState.committedCheckbox}
+                onCheckedChange={(checked) =>
+                  setFormState((prev) => ({ ...prev, committedCheckbox: checked === true }))
+                }
+                className="mt-1"
+              />
+              <label htmlFor="commit" className="text-sm font-semibold text-slate-700 cursor-pointer">
+                I commit to these power moves and take ownership of today's execution
+              </label>
+            </div>
+
+            <Button
+              onClick={handleSubmit}
+              disabled={!formState.committedCheckbox}
+              className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-6"
+              size="lg"
+            >
+              Submit Daily Report
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </main>
   )
