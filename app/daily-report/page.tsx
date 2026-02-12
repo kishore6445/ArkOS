@@ -380,60 +380,6 @@ export default function DailyReportPage() {
     </main>
   )
 }
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {}
-
-    // Check if all done values are numeric
-    mockPowerMoves.forEach((pm) => {
-      const value = formState.powerMovesDone[pm.id]
-      if (typeof value !== "number" || isNaN(value)) {
-        newErrors[`done-${pm.id}`] = "Must be a number"
-      }
-    })
-
-    // Check if committed
-    if (!formState.committedCheckbox) {
-      newErrors["committed"] = "You must commit to continue"
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  const handleSubmit = () => {
-    if (!validateForm()) return
-
-    console.log("[v0] Daily report submitted:", formState)
-    setSubmitted(true)
-
-    setTimeout(() => {
-      router.push("/dashboard")
-    }, 2000)
-  }
-
-  const isFormValid = mockPowerMoves.length > 0 && formState.committedCheckbox && Object.keys(errors).length === 0
-
-  if (submitted) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md border-green-200 bg-green-50">
-          <CardContent className="pt-8 text-center space-y-4">
-            <div className="h-16 w-16 mx-auto bg-green-100 rounded-full flex items-center justify-center">
-              <span className="text-3xl">✓</span>
-            </div>
-            <div className="space-y-2">
-              <h2 className="text-2xl font-black text-slate-900">Daily Report Submitted</h2>
-              <p className="text-slate-600">Warrior mode logged. Redirecting...</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
-
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* STICKY HEADER */}
       <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
