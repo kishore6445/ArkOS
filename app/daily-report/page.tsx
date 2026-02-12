@@ -381,55 +381,6 @@ export default function DailyReportPage() {
   )
 }
 
-export default function DailyReportPage() {
-  const router = useRouter()
-  const today = new Date().toISOString().split("T")[0]
-
-  // Mock power moves - in production, fetch from user's actual power moves
-  const mockPowerMoves: PowerMove[] = [
-    { id: "pm-1", name: "Client Discovery Calls", target: 5 },
-    { id: "pm-2", name: "Proposal Follow-ups", target: 3 },
-    { id: "pm-3", name: "Meeting Conversions", target: 2 },
-  ]
-
-  const [formState, setFormState] = useState<DailyReportFormState>({
-    powerMovesDone: mockPowerMoves.reduce((acc, pm) => ({ ...acc, [pm.id]: 0 }), {}),
-    victoryTargetAlignment: true,
-    alignmentNote: "",
-    blocker: "",
-    blockerType: "",
-    tomorrowCommitment: "",
-    committedCheckbox: false,
-  })
-
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [submitted, setSubmitted] = useState(false)
-
-  // Calculate power moves score
-  const powerMovesHit = mockPowerMoves.filter((pm) => {
-    const done = formState.powerMovesDone[pm.id] || 0
-    return done >= pm.target
-  }).length
-
-  const powerMovesPercentage = mockPowerMoves.length > 0 ? Math.round((powerMovesHit / mockPowerMoves.length) * 100) : 0
-
-  const handlePowerMoveDone = (pmId: string, value: string) => {
-    const numValue = parseInt(value) || 0
-    if (numValue < 0) return
-
-    setFormState((prev) => ({
-      ...prev,
-      powerMovesDone: { ...prev.powerMovesDone, [pmId]: numValue },
-    }))
-
-    // Clear error for this field
-    setErrors((prev) => {
-      const newErrors = { ...prev }
-      delete newErrors[`done-${pmId}`]
-      return newErrors
-    })
-  }
-
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
