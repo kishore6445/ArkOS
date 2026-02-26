@@ -11,6 +11,8 @@ import { useUser } from "@/lib/user-context"
 import { useBrand } from "@/lib/brand-context"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { MissionContextSection } from "@/components/mission-context-section"
+import { PowerMoveModal, type PowerMoveFormData } from "@/components/power-move-modal"
+import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
 
 type TimePeriod = "today" | "this-week" | "this-month" | "this-quarter"
@@ -41,6 +43,7 @@ export function IndividualDashboard({
 }: IndividualDashboardProps) {
   const { currentUser, isLoading: isUserLoading } = useUser()
   const { brandConfig } = useBrand()
+  const { toast } = useToast()
   const [tasks, setTasks] = useState([])
   const [commitments, setCommitments] = useState([])
   const [powerMoves, setPowerMoves] = useState<any[]>([])
@@ -52,6 +55,7 @@ export function IndividualDashboard({
   const [supportingWorkOpen, setSupportingWorkOpen] = useState(false)
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("today")
   const [linkedPowerMove, setLinkedPowerMove] = useState<string | null>(null)
+  const [showPowerMoveModal, setShowPowerMoveModal] = useState(false)
 
   const normalizeGoalType = (goalType: string): PersonalVictoryTarget["goalType"] => {
     const normalized = goalType.trim().toLowerCase()
@@ -73,6 +77,43 @@ export function IndividualDashboard({
         c.id === id ? { ...c, completed: !c.completed, status: !c.completed ? "Completed" : "In Progress" } : c,
       ),
     )
+  }
+
+  const handleSavePowerMove = async (data: PowerMoveFormData) => {
+    try {
+      const response = await fetch("/api/admin/power-moves", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.title,
+          frequency: data.frequency,
+          targetPerCycle: data.targetPerCycle,
+          owner: data.owner,
+          ownerId: data.ownerId,
+          linkedVictoryTarget: data.linkedVictoryTargets[0],
+          brand: currentUser?.name || "Personal",
+          department: "individual",
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to save power move")
+      }
+
+      const result = await response.json()
+      setPowerMoves((prev) => [...prev, result.powerMove])
+      toast({
+        title: "Success",
+        description: "Power Move created successfully",
+      })
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to save power move",
+        variant: "destructive",
+      })
+      throw error
+    }
   }
 
   useEffect(() => {
@@ -682,9 +723,19 @@ export function IndividualDashboard({
 
       {/* Power Moves Section - Cleaner table design */}
       <div className='bg-white border border-slate-200 rounded-lg overflow-hidden mt-6'>
-        <div className='px-6 py-5 border-b border-slate-200 bg-slate-50'>
-          <p className='text-sm font-bold uppercase tracking-wider text-slate-900'>Power Moves</p>
-          <p className='text-xs text-slate-500 mt-1'>Lead measures · Recurring actions</p>
+        <div className='px-6 py-5 border-b border-slate-200 bg-slate-50 flex items-center justify-between'>
+          <div>
+            <p className='text-sm font-bold uppercase tracking-wider text-slate-900'>Power Moves</p>
+            <p className='text-xs text-slate-500 mt-1'>Lead measures · Recurring actions</p>
+          </div>
+          <Button
+            size='sm'
+            onClick={() => setShowPowerMoveModal(true)}
+            className='bg-orange-500 hover:bg-orange-600 text-white gap-2'
+          >
+            <Plus className='h-4 w-4' />
+            Add Power Move
+          </Button>
         </div>
 
         <div className='overflow-x-auto'>
@@ -826,6 +877,22 @@ export function IndividualDashboard({
           )}
         </div>
       </div>
+
+      {/* Power Move Modal */}
+      <PowerMoveModal
+        open={showPowerMoveModal}
+        onOpenChange={setShowPowerMoveModal}
+        onSave={handleSavePowerMove}
+        victoryTargets={personalTargets.map((target) => ({
+          id: target.id,
+          title: target.personalTargetName,
+          owner: currentUser?.name,
+          ownerId: currentUser?.id,
+          department: "individual",
+        }))}
+        currentUserName={currentUser?.name || currentUserName}
+        currentUserId={currentUser?.id || currentUserId}
+      />
     </section>
   )
 }
