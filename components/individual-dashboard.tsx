@@ -14,6 +14,7 @@ import { MissionContextSection } from "@/components/mission-context-section"
 import { PowerMoveModal, type PowerMoveFormData } from "@/components/power-move-modal"
 import { MissionBanner } from "@/components/mission-banner"
 import { TutorialCard } from "@/components/tutorial-card"
+import { StatusBadge } from "@/components/status-badge"
 import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
 
@@ -581,28 +582,36 @@ export function IndividualDashboard({
       {/* MISSION CONTEXT - Show brand contribution to company mission */}
       <MissionContextSection type="individual" brandName={brandConfig.name} />
 
-      {/* HERO STATUS FLOW - Clean, spacious, low-cognitive-load design */}
-      <div className='px-6 sm:px-8 lg:px-12 py-20 bg-gradient-to-b from-white to-slate-50'>
+      {/* HERO STATUS FLOW - Simplified primary focus */}
+      <div className='px-6 sm:px-8 lg:px-12 py-16 bg-gradient-to-b from-white to-slate-50'>
         <div className='max-w-7xl mx-auto'>
-          {/* 3-Column Flow with Better Spacing */}
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-12'>
+          {/* Primary Metric - Execution Discipline */}
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-start'>
             
-            {/* STEP 1 - Power Moves */}
-            <div className='flex flex-col justify-start'>
-              <div className='mb-8'>
-                <span className='inline-block h-8 w-8 rounded-full bg-orange-500 text-white font-bold flex items-center justify-center text-sm mb-4'>1</span>
-                <h3 className='text-sm font-bold uppercase text-slate-600 tracking-widest mb-4'>Execution Discipline</h3>
+            {/* Left: Today's Execution */}
+            <div className='space-y-8'>
+              <div className='space-y-4'>
+                <div className='flex items-center gap-3'>
+                  <span className='inline-block h-10 w-10 rounded-full bg-orange-500 text-white font-bold flex items-center justify-center'>1</span>
+                  <h2 className='text-2xl font-black text-slate-900'>Today's Execution</h2>
+                </div>
+                <p className='text-slate-600'>How you're performing against your power moves today</p>
               </div>
-              <div className='mb-auto'>
+              
+              <div className='bg-white rounded-lg border border-slate-200 p-8'>
                 <div className='text-6xl font-black text-slate-900 leading-none mb-3'>
                   {periodData.completed}
                 </div>
-                <p className='text-base text-slate-600'>
-                  of {periodData.total} {periodData.total === 1 ? 'action' : 'actions'}
+                <p className='text-base text-slate-600 mb-6'>
+                  of {periodData.total} {periodData.total === 1 ? 'action' : 'actions'} completed
                 </p>
-              </div>
-              <div className='mt-8 pt-6 border-t border-slate-200'>
-                <div className='flex items-center gap-3'>
+                <div className='h-2 bg-slate-200 rounded-full overflow-hidden'>
+                  <div 
+                    className='h-full bg-orange-500 transition-all duration-500' 
+                    style={{ width: `${periodData.total > 0 ? (periodData.completed / periodData.total) * 100 : 0}%` }}
+                  />
+                </div>
+                <div className='mt-6 pt-6 border-t border-slate-200 flex items-center gap-3'>
                   {status.color === '#16A34A' && <div className='h-3 w-3 rounded-full bg-green-600' />}
                   {status.color === '#F59E0B' && <div className='h-3 w-3 rounded-full bg-amber-600' />}
                   {status.color === '#DC2626' && <div className='h-3 w-3 rounded-full bg-red-600' />}
@@ -611,105 +620,55 @@ export function IndividualDashboard({
               </div>
             </div>
 
-            {/* STEP 2 - Outcomes - Personal Victory Targets by Type */}
-            <div className='flex flex-col justify-start'>
-              <div className='mb-8'>
-                <span className='inline-block h-8 w-8 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center text-sm mb-4'>2</span>
-                <h3 className='text-sm font-bold uppercase text-slate-600 tracking-widest mb-4'>Your Goals</h3>
-              </div>
-              {visibleTargets.length > 0 ? (
-                <div className='space-y-6'>
-                  {/* Goal Types Summary - Cleaner */}
-                  <div className='space-y-3'>
-                    <div className='flex items-baseline justify-between'>
-                      <span className='text-xs font-semibold text-slate-500 uppercase tracking-wider'>Quantitative</span>
-                      <span className='text-4xl font-black text-slate-900'>{quantitativeTargets.length}</span>
-                    </div>
-                    <div className='flex items-baseline justify-between'>
-                      <span className='text-xs font-semibold text-slate-500 uppercase tracking-wider'>Qualitative</span>
-                      <span className='text-4xl font-black text-slate-900'>{qualitativeTargets.length}</span>
-                    </div>
-                    <div className='flex items-baseline justify-between'>
-                      <span className='text-xs font-semibold text-slate-500 uppercase tracking-wider'>Learning</span>
-                      <span className='text-4xl font-black text-slate-900'>{learningTargets.length}</span>
-                    </div>
-                  </div>
-
-                  {/* Overall Progress */}
-                  <div className='pt-4 border-t border-slate-200'>
-                    <div className='flex items-center gap-2 mb-2'>
-                      {onTrackCount === visibleTargets.length && <div className='h-3 w-3 rounded-full bg-green-600' />}
-                      {onTrackCount > 0 && onTrackCount < visibleTargets.length && <div className='h-3 w-3 rounded-full bg-amber-600' />}
-                      {onTrackCount === 0 && <div className='h-3 w-3 rounded-full bg-red-600' />}
-                    </div>
-                    <p className='text-sm text-slate-600 font-medium'>
-                      {onTrackCount} of {visibleTargets.length} on track
-                    </p>
-                  </div>
-
-                  {/* Goal Details - Expandable */}
-                  <div className='pt-4 border-t border-slate-200'>
-                    <Collapsible>
-                      <CollapsibleTrigger className='flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors'>
-                        <ChevronDown className='h-4 w-4' />
-                        View goal details
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className='pt-4 space-y-3'>
-                        {visibleTargets.map((target) => (
-                          <div key={target.id} className='rounded-lg border border-slate-200 p-3 bg-slate-50'>
-                            <div className='flex items-start justify-between mb-2'>
-                              <div className='flex-1'>
-                                <p className='text-sm font-semibold text-slate-900'>{target.personalTargetName}</p>
-                                <p className='text-xs text-slate-500 mt-0.5'>{target.goalType}</p>
-                              </div>
-                              <span className={cn(
-                                'inline-flex items-center px-2 py-1 rounded text-xs font-semibold whitespace-nowrap',
-                                target.status === 'On Track' ? 'bg-green-100 text-green-700' :
-                                target.status === 'At Risk' ? 'bg-amber-100 text-amber-700' :
-                                'bg-red-100 text-red-700'
-                              )}>
-                                {target.status}
-                              </span>
-                            </div>
-                            {target.description && (
-                              <p className='text-xs text-slate-600 mt-2 leading-relaxed'>{target.description}</p>
-                            )}
-                            <div className='mt-2 pt-2 border-t border-slate-200 flex justify-between text-xs text-slate-600'>
-                              <span>Progress: {target.currentValue}/{target.targetValue}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </div>
+            {/* Right: Your Reward + Goals Summary */}
+            <div className='space-y-8'>
+              <div className='space-y-4'>
+                <div className='flex items-center gap-3'>
+                  <span className='inline-block h-10 w-10 rounded-full bg-green-600 text-white font-bold flex items-center justify-center'>2</span>
+                  <h2 className='text-2xl font-black text-slate-900'>Your Reward</h2>
                 </div>
-              ) : (
-                <div className='text-sm text-slate-500 font-medium'>Define your personal goals to get started</div>
-              )}
-            </div>
-
-            {/* STEP 3 - Your Reward */}
-            <div className='flex flex-col justify-start'>
-              <div className='mb-8'>
-                <span className='inline-block h-8 w-8 rounded-full bg-green-600 text-white font-bold flex items-center justify-center text-sm mb-4'>3</span>
-                <h3 className='text-sm font-bold uppercase text-slate-600 tracking-widest mb-4'>Your Reward</h3>
+                <p className='text-slate-600'>What you earn when Mission 30 succeeds</p>
               </div>
-              <div className='mb-auto'>
-                <div className='text-6xl font-black text-slate-900 leading-none mb-3'>
+
+              <div className='bg-white rounded-lg border border-slate-200 p-8'>
+                <div className='text-6xl font-black text-green-600 leading-none mb-3'>
                   30%
                 </div>
-                <p className='text-base text-slate-600'>
+                <p className='text-base text-slate-600 mb-6'>
                   Salary increase achievable
                 </p>
-              </div>
-              <div className='mt-8 pt-6 border-t border-slate-200'>
-                <div className='flex items-center gap-3'>
+                <div className='pt-6 border-t border-slate-200 flex items-center gap-3'>
                   <div className='h-3 w-3 rounded-full bg-green-600' />
                   <span className='text-sm font-semibold text-slate-900'>Achievable</span>
                 </div>
               </div>
-            </div>
 
+              {/* Goals Summary */}
+              {visibleTargets.length > 0 && (
+                <div className='bg-slate-50 rounded-lg border border-slate-200 p-6'>
+                  <p className='text-sm font-bold uppercase tracking-widest text-slate-600 mb-4'>Your Goals</p>
+                  <div className='space-y-3'>
+                    <div className='flex items-baseline justify-between'>
+                      <span className='text-xs text-slate-600'>Quantitative</span>
+                      <span className='text-2xl font-black text-slate-900'>{quantitativeTargets.length}</span>
+                    </div>
+                    <div className='flex items-baseline justify-between'>
+                      <span className='text-xs text-slate-600'>Qualitative</span>
+                      <span className='text-2xl font-black text-slate-900'>{qualitativeTargets.length}</span>
+                    </div>
+                    <div className='flex items-baseline justify-between'>
+                      <span className='text-xs text-slate-600'>Learning</span>
+                      <span className='text-2xl font-black text-slate-900'>{learningTargets.length}</span>
+                    </div>
+                  </div>
+                  {onTrackCount >= 0 && (
+                    <div className='pt-4 border-t border-slate-300 mt-4'>
+                      <p className='text-xs text-slate-600'>{onTrackCount} of {visibleTargets.length} on track</p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -791,14 +750,11 @@ export function IndividualDashboard({
                         <span className='text-sm font-bold text-slate-900'>{actual}/{target}</span>
                       </td>
                       <td className='px-6 py-4 text-center'>
-                        <span className={cn(
-                          'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold',
-                          executionStatus === 'Completed' ? 'bg-green-100 text-green-700' :
-                          executionStatus === 'In Progress' ? 'bg-amber-100 text-amber-700' :
-                          'bg-slate-100 text-slate-700'
-                        )}>
-                          {executionStatus}
-                        </span>
+                        <StatusBadge
+                          status={executionStatus === 'Completed' ? 'complete' : executionStatus === 'In Progress' ? 'pending' : 'behind'}
+                          label={executionStatus}
+                          showIcon={true}
+                        />
                       </td>
                       <td className='px-6 py-4 text-center'>
                         <Button
@@ -806,7 +762,7 @@ export function IndividualDashboard({
                           disabled={actual >= target}
                           onClick={() => handleCompletePowerMove(pm.id)}
                           className={cn(
-                            'text-xs font-semibold',
+                            'text-xs font-semibold hover-scale',
                             actual >= target
                               ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
                               : 'bg-green-600 hover:bg-green-700 text-white'
@@ -824,75 +780,24 @@ export function IndividualDashboard({
         </div>
       </div>
 
-      {/* Tasks Section - Cleaner list design */}
-      <div className='bg-white border border-slate-200 rounded-lg overflow-hidden mt-6'>
-        <div className='px-6 py-5 border-b border-slate-200 bg-slate-50'>
-          <p className='text-sm font-bold uppercase tracking-wider text-slate-900'>Tasks</p>
-          <p className='text-xs text-slate-500 mt-1'>One-time activities</p>
-        </div>
+      {/* Today's Focus Card */}
+      <TodaysFocus 
+        completedToday={periodData.completed}
+        totalTarget={periodData.total}
+        onAddPowerMove={() => setShowPowerMoveModal(true)}
+        topPowerMoves={powerMoves.slice(0, 3).map((pm) => ({
+          id: pm.id,
+          name: pm.name || pm.title,
+        }))}
+      />
 
-        <div className='divide-y divide-slate-200'>
-          {tasks.length === 0 ? (
-            <p className='px-6 py-8 text-sm text-slate-500 text-center'>No tasks for this period</p>
-          ) : (
-            tasks.map((task) => (
-              <div key={task.id} className='px-6 py-4 flex items-center gap-4 hover:bg-slate-50 transition-colors'>
-                <Checkbox 
-                  checked={task.completed} 
-                  onCheckedChange={() => toggleTask(task.id)} 
-                  className='h-5 w-5' 
-                />
-                <div className='flex-1 min-w-0'>
-                  <p className={cn('text-sm font-semibold text-slate-900', task.completed && 'line-through text-slate-400')}>
-                    {task.title}
-                  </p>
-                </div>
-                <span className={cn(
-                  'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap',
-                  task.completed ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700'
-                )}>
-                  {task.completed ? 'Done' : 'Pending'}
-                </span>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      {/* Commitments Section - Cleaner list design */}
-      <div className='bg-white border border-slate-200 rounded-lg overflow-hidden mt-6'>
-        <div className='px-6 py-5 border-b border-slate-200 bg-slate-50'>
-          <p className='text-sm font-bold uppercase tracking-wider text-slate-900'>Commitments</p>
-          <p className='text-xs text-slate-500 mt-1'>Team promises</p>
-        </div>
-
-        <div className='divide-y divide-slate-200'>
-          {commitments.length === 0 ? (
-            <p className='px-6 py-8 text-sm text-slate-500 text-center'>No commitments for this period</p>
-          ) : (
-            commitments.map((commitment) => (
-              <div key={commitment.id} className='px-6 py-4 flex items-center gap-4 hover:bg-slate-50 transition-colors'>
-                <Checkbox 
-                  checked={commitment.completed} 
-                  onCheckedChange={() => toggleCommitment(commitment.id)} 
-                  className='h-5 w-5' 
-                />
-                <div className='flex-1 min-w-0'>
-                  <p className={cn('text-sm font-semibold text-slate-900', commitment.completed && 'line-through text-slate-400')}>
-                    {commitment.title}
-                  </p>
-                </div>
-                <span className={cn(
-                  'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap',
-                  commitment.completed ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700'
-                )}>
-                  {commitment.completed ? 'Done' : 'Pending'}
-                </span>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
+      {/* Today's Actions - Merged Tasks & Commitments */}
+      <TodaysActions 
+        tasks={tasks}
+        commitments={commitments}
+        onToggleTask={toggleTask}
+        onToggleCommitment={toggleCommitment}
+      />
 
       {/* Power Move Modal */}
       <PowerMoveModal
