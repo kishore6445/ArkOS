@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js"
 type CreatePayload = {
   employeeId: string
   personalTargetName: string
+  description?: string
   quarter: "Q1" | "Q2" | "Q3" | "Q4"
   goalType: "Quantitative" | "Qualitative" | "Learning"
   targetValue: number
@@ -37,7 +38,7 @@ export async function GET() {
 
     const { data, error } = await supabase
       .from("personal_victory_targets")
-      .select("id, employee_id, personal_target_name, quarter, goal_type, target_value, current_value, status, created_at")
+      .select("id, employee_id, personal_target_name, description, quarter, goal_type, target_value, current_value, status, created_at")
       .order("created_at", { ascending: false })
 
     if (error) {
@@ -48,6 +49,7 @@ export async function GET() {
       id: row.id,
       employeeId: row.employee_id,
       personalTargetName: row.personal_target_name,
+      description: row.description,
       quarter: row.quarter,
       goalType: row.goal_type,
       targetValue: row.target_value,
@@ -90,13 +92,14 @@ export async function POST(request: Request) {
       .insert({
         employee_id: payload.employeeId,
         personal_target_name: payload.personalTargetName,
+        description: payload.description || null,
         quarter: payload.quarter,
         goal_type: payload.goalType,
         target_value: payload.targetValue,
         current_value: currentValue,
         status,
       })
-      .select("id, employee_id, personal_target_name, quarter, goal_type, target_value, current_value, status, created_at")
+      .select("id, employee_id, personal_target_name, description, quarter, goal_type, target_value, current_value, status, created_at")
       .single()
 
     if (error || !data) {
@@ -109,6 +112,7 @@ export async function POST(request: Request) {
           id: data.id,
           employeeId: data.employee_id,
           personalTargetName: data.personal_target_name,
+          description: data.description,
           quarter: data.quarter,
           goalType: data.goal_type,
           targetValue: data.target_value,
@@ -137,6 +141,7 @@ export async function PUT(request: Request) {
 
     if (payload.employeeId) updateRow.employee_id = payload.employeeId
     if (payload.personalTargetName) updateRow.personal_target_name = payload.personalTargetName
+    if (payload.description !== undefined) updateRow.description = payload.description
     if (payload.quarter) updateRow.quarter = payload.quarter
     if (payload.goalType) updateRow.goal_type = payload.goalType
     if (typeof payload.targetValue === "number") updateRow.target_value = payload.targetValue
@@ -157,7 +162,7 @@ export async function PUT(request: Request) {
       .from("personal_victory_targets")
       .update(updateRow)
       .eq("id", payload.id)
-      .select("id, employee_id, personal_target_name, quarter, goal_type, target_value, current_value, status, created_at")
+      .select("id, employee_id, personal_target_name, description, quarter, goal_type, target_value, current_value, status, created_at")
       .single()
 
     if (error || !data) {
@@ -170,6 +175,7 @@ export async function PUT(request: Request) {
           id: data.id,
           employeeId: data.employee_id,
           personalTargetName: data.personal_target_name,
+          description: data.description,
           quarter: data.quarter,
           goalType: data.goal_type,
           targetValue: data.target_value,

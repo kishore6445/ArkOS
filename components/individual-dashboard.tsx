@@ -25,6 +25,7 @@ type PersonalVictoryTarget = {
   id: string
   employeeId: string
   personalTargetName: string
+  description?: string
   quarter: "Q1" | "Q2" | "Q3" | "Q4"
   goalType: "Quantitative" | "Qualitative" | "Learning"
   targetValue: number
@@ -598,6 +599,42 @@ export function IndividualDashboard({
                     <p className='text-sm text-slate-600 font-medium'>
                       {onTrackCount} of {visibleTargets.length} on track
                     </p>
+                  </div>
+
+                  {/* Goal Details - Expandable */}
+                  <div className='pt-4 border-t border-slate-200'>
+                    <Collapsible>
+                      <CollapsibleTrigger className='flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors'>
+                        <ChevronDown className='h-4 w-4' />
+                        View goal details
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className='pt-4 space-y-3'>
+                        {visibleTargets.map((target) => (
+                          <div key={target.id} className='rounded-lg border border-slate-200 p-3 bg-slate-50'>
+                            <div className='flex items-start justify-between mb-2'>
+                              <div className='flex-1'>
+                                <p className='text-sm font-semibold text-slate-900'>{target.personalTargetName}</p>
+                                <p className='text-xs text-slate-500 mt-0.5'>{target.goalType}</p>
+                              </div>
+                              <span className={cn(
+                                'inline-flex items-center px-2 py-1 rounded text-xs font-semibold whitespace-nowrap',
+                                target.status === 'On Track' ? 'bg-green-100 text-green-700' :
+                                target.status === 'At Risk' ? 'bg-amber-100 text-amber-700' :
+                                'bg-red-100 text-red-700'
+                              )}>
+                                {target.status}
+                              </span>
+                            </div>
+                            {target.description && (
+                              <p className='text-xs text-slate-600 mt-2 leading-relaxed'>{target.description}</p>
+                            )}
+                            <div className='mt-2 pt-2 border-t border-slate-200 flex justify-between text-xs text-slate-600'>
+                              <span>Progress: {target.currentValue}/{target.targetValue}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
                   </div>
                 </div>
               ) : (
