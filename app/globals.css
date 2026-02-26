@@ -286,23 +286,23 @@
   }
 
   /* Hover scale effect for interactive elements */
-  .transition-scale {
-    /* @apply transition-transform duration-150 ease-out;
+  /*.transition-scale {
+     @apply transition-transform duration-150 ease-out;
   } */
-    /* .hover-scale {
+  /* .hover-scale {
     @apply hover:scale-[1.02] active:scale-95 transition-scale;
   } */
 
-    .hover-scale {
-      @apply hover:scale-[1.02] active:scale-95 transition-transform duration-150 ease-out;
-    }
-
-    .hover-shadow {
-      @apply hover:shadow-md transition-shadow duration-150;
-    }
-
-    /* Focus ring utility */
-    .focus-ring {
-      @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2;
-    }
+  .hover-scale {
+    @apply hover:scale-[1.02] active:scale-95 transition-transform duration-150 ease-out;
   }
+
+  .hover-shadow {
+    @apply hover:shadow-md transition-shadow duration-150;
+  }
+
+  /* Focus ring utility */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2;
+  }
+}
