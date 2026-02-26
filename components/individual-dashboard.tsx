@@ -527,7 +527,14 @@ export function IndividualDashboard({
   return (
     <section className='pb-8 space-y-0' aria-labelledby='personal-dashboard-heading'>
       {/* Mission 30 Progress Banner */}
-      <MissionBanner />
+      {(() => {
+        try {
+          return <MissionBanner />
+        } catch (error) {
+          console.log("[v0] MissionBanner error:", error)
+          return null
+        }
+      })()}
       
       {/* PROFILE HEADER - LinkedIn-style identity section */}
       <div className='bg-gradient-to-r from-slate-900 to-slate-800 text-white px-6 sm:px-8 lg:px-12 py-12'>
@@ -705,15 +712,24 @@ export function IndividualDashboard({
         </div>
 
         {/* Tutorial: Power Moves Explained */}
-        <TutorialCard
-          id='power-moves-intro'
-          title='What are Power Moves?'
-          description='Power Moves are recurring actions you own that directly impact Mission 30. Execute them daily to help us reach 30 clients and earn your 30% salary hike.'
-          action={{
-            label: 'Add Your First Power Move',
-            onClick: () => setShowPowerMoveModal(true),
-          }}
-        />
+        {(() => {
+          try {
+            return (
+              <TutorialCard
+                id='power-moves-intro'
+                title='What are Power Moves?'
+                description='Power Moves are recurring actions you own that directly impact Mission 30. Execute them daily to help us reach 30 clients and earn your 30% salary hike.'
+                action={{
+                  label: 'Add Your First Power Move',
+                  onClick: () => setShowPowerMoveModal(true),
+                }}
+              />
+            )
+          } catch (error) {
+            console.log("[v0] TutorialCard error:", error)
+            return null
+          }
+        })()}
 
         <div className='overflow-x-auto'>
           <table className='w-full'>
@@ -752,11 +768,20 @@ export function IndividualDashboard({
                         <span className='text-sm font-bold text-slate-900'>{actual}/{target}</span>
                       </td>
                       <td className='px-6 py-4 text-center'>
-                        <StatusBadge
-                          status={executionStatus === 'Completed' ? 'complete' : executionStatus === 'In Progress' ? 'pending' : 'behind'}
-                          label={executionStatus}
-                          showIcon={true}
-                        />
+                        {(() => {
+                          try {
+                            return (
+                              <StatusBadge
+                                status={executionStatus === 'Completed' ? 'complete' : executionStatus === 'In Progress' ? 'pending' : 'behind'}
+                                label={executionStatus}
+                                showIcon={true}
+                              />
+                            )
+                          } catch (error) {
+                            console.log("[v0] StatusBadge error:", error)
+                            return <span className='text-xs font-semibold text-slate-600'>{executionStatus}</span>
+                          }
+                        })()}
                       </td>
                       <td className='px-6 py-4 text-center'>
                         <Button
