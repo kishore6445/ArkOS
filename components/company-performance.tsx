@@ -28,8 +28,8 @@ export function CompanyPerformance() {
   ])
 
   const [missionData, setMissionData] = useState({
-    missionTitle: 'Onboard 50 Clients',
-    totalTarget: 50,
+    missionTitle: 'Onboard 30 Clients',
+    totalTarget: 30,
     currentTargetAchieved: 3,
   })
 

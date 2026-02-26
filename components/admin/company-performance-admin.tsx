@@ -35,17 +35,17 @@ interface DepartmentHealth {
 
 export function CompanyPerformanceAdmin() {
   const currentYear = new Date().getFullYear()
-  const [missionTitle, setMissionTitle] = useState('Onboard 50 Clients')
+  const [missionTitle, setMissionTitle] = useState('Onboard 30 Clients')
   const [missionYear, setMissionYear] = useState(String(currentYear))
-  const [totalTarget, setTotalTarget] = useState('50')
+  const [totalTarget, setTotalTarget] = useState('30')
   const [currentActiveClients, setCurrentActiveClients] = useState('3')
   const [isSavingMission, setIsSavingMission] = useState(false)
 
   const [quarterlyTargets, setQuarterlyTargets] = useState([
     { quarter: 'Q1', plannedClients: 0, plannedRevenue: 0 },
-    { quarter: 'Q2', plannedClients: 10, plannedRevenue: 350000 },
-    { quarter: 'Q3', plannedClients: 20, plannedRevenue: 700000 },
-    { quarter: 'Q4', plannedClients: 30, plannedRevenue: 1050000 },
+    { quarter: 'Q2', plannedClients: 6, plannedRevenue: 210000 },
+    { quarter: 'Q3', plannedClients: 12, plannedRevenue: 420000 },
+    { quarter: 'Q4', plannedClients: 18, plannedRevenue: 630000 },
   ])
 
   const [selectedQuarter, setSelectedQuarter] = useState('Q1')
@@ -74,7 +74,7 @@ export function CompanyPerformanceAdmin() {
     { id: '3', name: 'Client C', brand: 'Warrior Systems', eventType: 'Added', month: 'Mar 2026' }
   ])
 
-  const [founderVerdict, setFounderVerdict] = useState('Q1 focus was fragmented. Core sales cadence weakened while experiments increased. We need discipline—not perfection—to hit Mission 50.')
+  const [founderVerdict, setFounderVerdict] = useState('Q1 focus was fragmented. Core sales cadence weakened while experiments increased. We need discipline—not perfection—to hit Mission 30.')
 
   const [strategyTitle, setStrategyTitle] = useState('Freeze acquisition experiments')
   const [strategyDesc, setStrategyDesc] = useState('Reinforce sales cadence and follow-up rhythm.')
