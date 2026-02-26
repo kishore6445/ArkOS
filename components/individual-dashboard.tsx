@@ -650,7 +650,7 @@ export function IndividualDashboard({
               </div>
               <div className='mb-auto'>
                 <div className='text-6xl font-black text-slate-900 leading-none mb-3'>
-                  35%
+                  30%
                 </div>
                 <p className='text-base text-slate-600'>
                   Salary increase achievable

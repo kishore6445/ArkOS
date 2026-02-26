@@ -130,7 +130,7 @@ export default function SignInPage() {
               <div className="space-y-4">
                 <p className="text-white text-xs uppercase tracking-widest font-bold opacity-90">Your Mission</p>
                 <h2 className="text-4xl font-black text-white leading-tight">
-                  Execute.<br/>Win Mission 50.<br/>Earn 35% hike.
+                  Execute.<br/>Win Mission 30.<br/>Earn 30% hike.
                 </h2>
               </div>
 
@@ -141,12 +141,12 @@ export default function SignInPage() {
                 </div>
                 <div className="h-1 bg-orange-200 rounded-full"></div>
                 <div className="space-y-2">
-                  <p className="text-slate-900 font-bold text-sm">Win Mission 50</p>
-                  <p className="text-slate-600 text-sm">50 clients. 3 brands. Your execution powers it all.</p>
+                  <p className="text-slate-900 font-bold text-sm">Win Mission 30</p>
+                  <p className="text-slate-600 text-sm">30 clients. 3 brands. Your execution powers it all.</p>
                 </div>
                 <div className="h-1 bg-orange-200 rounded-full"></div>
                 <div className="space-y-2">
-                  <p className="text-slate-900 font-bold text-sm">Earn 35% Hike</p>
+                  <p className="text-slate-900 font-bold text-sm">Earn 30% Hike</p>
                   <p className="text-slate-600 text-sm">Your contribution = your growth. Transparent. Fair.</p>
                 </div>
               </div>
