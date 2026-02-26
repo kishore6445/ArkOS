@@ -1,10 +1,9 @@
 'use client'
 
-import { COMPANY_MISSION, useMission } from '@/lib/mission-context'
+import { COMPANY_MISSION } from '@/lib/mission-context'
 
 export function MissionBanner() {
-  const { getProgress } = useMission()
-  const progress = getProgress()
+  const progress = (COMPANY_MISSION.totalAchieved / COMPANY_MISSION.totalTarget) * 100
   const clientsRemaining = COMPANY_MISSION.totalTarget - COMPANY_MISSION.totalAchieved
 
   return (
@@ -22,7 +21,7 @@ export function MissionBanner() {
             </div>
             <p className='text-sm text-orange-800 mt-1'>
               {clientsRemaining === 0 
-                ? '🎉 Mission Complete!' 
+                ? 'Mission Complete!' 
                 : `${clientsRemaining} clients away from ${COMPANY_MISSION.totalTarget}% salary hike`}
             </p>
           </div>

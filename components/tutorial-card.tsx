@@ -32,7 +32,7 @@ export function TutorialCard({ id, title, description, icon, action }: TutorialC
   if (!isVisible) return null
 
   return (
-    <div className='bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start gap-4 animate-in fade-in slide-in-from-top-2 duration-300'>
+    <div className='bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start gap-4 animate-fade-in-up'>
       {icon && (
         <div className='flex-shrink-0 text-blue-600 mt-1'>
           {icon}
