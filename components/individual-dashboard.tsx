@@ -18,6 +18,7 @@ import { TodaysFocus } from "@/components/todays-focus"
 import { TodaysActions } from "@/components/todays-actions"
 import { TodaysExecutionFocus } from "@/components/todays-execution-focus"
 import { PersonalGoalsCollapsible } from "@/components/personal-goals-collapsible"
+import { ConnectionMapView } from "@/components/connection-map-view"
 import { StatusBadge } from "@/components/status-badge"
 import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
@@ -63,6 +64,7 @@ export function IndividualDashboard({
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("today")
   const [linkedPowerMove, setLinkedPowerMove] = useState<string | null>(null)
   const [showPowerMoveModal, setShowPowerMoveModal] = useState(false)
+  const [showConnectionMap, setShowConnectionMap] = useState(false)
 
   const normalizeGoalType = (goalType: string): PersonalVictoryTarget["goalType"] => {
     const normalized = goalType.trim().toLowerCase()
@@ -537,6 +539,61 @@ export function IndividualDashboard({
           return null
         }
       })()}
+
+      {/* View Toggle Tabs */}
+      <div className='bg-white border-b border-slate-200 px-6 sm:px-8 lg:px-12 sticky top-0 z-10'>
+        <div className='max-w-7xl mx-auto flex items-center gap-1'>
+          <Button
+            variant={!showConnectionMap ? 'default' : 'ghost'}
+            onClick={() => setShowConnectionMap(false)}
+            className='rounded-none border-b-2 font-semibold'
+            style={{
+              borderBottomColor: !showConnectionMap ? '#F97316' : 'transparent',
+              backgroundColor: !showConnectionMap ? 'transparent' : 'transparent',
+              color: !showConnectionMap ? '#F97316' : '#64748B',
+            }}
+          >
+            Dashboard
+          </Button>
+          <Button
+            variant={showConnectionMap ? 'default' : 'ghost'}
+            onClick={() => setShowConnectionMap(true)}
+            className='rounded-none border-b-2 font-semibold'
+            style={{
+              borderBottomColor: showConnectionMap ? '#F97316' : 'transparent',
+              backgroundColor: showConnectionMap ? 'transparent' : 'transparent',
+              color: showConnectionMap ? '#F97316' : '#64748B',
+            }}
+          >
+            Connection Map
+          </Button>
+        </div>
+      </div>
+
+      {/* Connection Map View */}
+      {showConnectionMap && (
+        <div className='px-6 sm:px-8 lg:px-12 py-12'>
+          <div className='max-w-7xl mx-auto'>
+            <ConnectionMapView
+              powerMoves={powerMoves.map((pm) => ({
+                id: pm.id,
+                name: pm.powerMoveName,
+                frequency: pm.frequency,
+                progress: pm.progress || 0,
+                target: pm.target || 1,
+                impact: pm.linkedVictoryTarget ? 'high' : 'medium',
+              }))}
+              missionTarget={30}
+              missionProgress={28}
+              missionName='Mission 30'
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Regular Dashboard View */}
+      {!showConnectionMap && (
+        <>
       
       {/* PROFILE HEADER - LinkedIn-style identity section */}
       <div className='bg-gradient-to-r from-slate-900 to-slate-800 text-white px-6 sm:px-8 lg:px-12 py-12'>
@@ -752,6 +809,8 @@ export function IndividualDashboard({
         currentUserName={currentUser?.name || currentUserName}
         currentUserId={currentUser?.id || currentUserId}
       />
+        </>
+      )}
     </section>
   )
 }
