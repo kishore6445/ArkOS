@@ -25,158 +25,130 @@ export default function HomePage() {
       </header>
 
       <main className="space-y-0">
-        {/* HERO - 30% Salary Growth as Dominant Message */}
-        <section className="bg-gradient-to-br from-slate-950 to-slate-900 px-6 py-48">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-20 lg:grid-cols-2 items-center">
-              {/* Left: The Promise */}
-              <div className="space-y-10">
-                <div className="space-y-6">
-                  <div className="space-y-3">
-                    <p className="text-sm uppercase tracking-[0.2em] text-orange-500 font-bold">Mission 30 Alignment</p>
-                    <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight">
-                      When We Get 30 Clients,<br />You Get a 30% Salary Hike.
-                    </h2>
-                    <p className="text-lg text-slate-300">Clear. Simple. Measurable.</p>
-                  </div>
-                  <p className="text-base text-slate-400 leading-relaxed max-w-lg">
-                    30 active clients across our 3 brands. When that target is achieved, every eligible team member earns a 30% Salary Hike. No politics. No favoritism. No guessing. Only execution.
-                  </p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    href="/signin"
-                    className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-8 py-4 text-base font-bold text-white transition hover:bg-orange-600"
-                  >
-                    Define your Power Move
-                  </Link>
-                  <Link
-                    href="/signin"
-                    className="inline-flex items-center justify-center rounded-lg border-2 border-slate-700 px-8 py-4 text-base font-bold text-white transition hover:border-slate-600 hover:bg-slate-900"
-                  >
-                    Learn more
-                  </Link>
-                </div>
+        {/* HERO - You Deserve Growth That Is Earned */}
+        <section className="bg-gradient-to-br from-slate-950 to-slate-900 px-6 py-32">
+          <div className="mx-auto max-w-4xl space-y-12">
+            <div className="space-y-8">
+              <h1 className="text-5xl lg:text-6xl font-black text-white leading-tight">
+                You Deserve Growth That Is Earned — Not Negotiated.
+              </h1>
+              <div className="space-y-6 text-lg text-slate-300">
+                <p>When ArkMedis reaches 30 clients,</p>
+                <p>you receive a 30% Salary Hike.</p>
               </div>
+            </div>
 
-              {/* Right: The Equation */}
-              <div className="space-y-8">
-                <div className="space-y-4 bg-slate-900 rounded-xl p-8 border border-slate-800">
-                  <h3 className="text-sm uppercase tracking-widest text-slate-400 font-bold">The Equation</h3>
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-orange-500 flex items-center justify-center text-white font-black text-lg">1</div>
-                      <div>
-                        <p className="text-sm text-slate-400">Your Power Move</p>
-                        <p className="font-semibold text-white">One measurable outcome you're responsible for</p>
-                      </div>
-                    </div>
-                    <div className="flex justify-center text-slate-500 text-xl">↓</div>
-                    <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-orange-500 flex items-center justify-center text-white font-black text-lg">2</div>
-                      <div>
-                        <p className="text-sm text-slate-400">More Clients</p>
-                        <p className="font-semibold text-white">Your impact helps us reach 30 clients</p>
-                      </div>
-                    </div>
-                    <div className="flex justify-center text-slate-500 text-xl">↓</div>
-                    <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-green-500 flex items-center justify-center text-white font-black text-lg">3</div>
-                      <div>
-                        <p className="text-sm text-slate-400">30% Salary Hike</p>
-                        <p className="font-semibold text-white">When the company grows, you grow</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="text-center text-sm text-slate-500 border-t border-slate-800 pt-6">
-                  <p>Transparent. Automatic. Fair.</p>
-                </div>
+            <div className="space-y-4 pt-8 border-t border-slate-800">
+              <div className="flex items-start gap-4">
+                <span className="text-2xl font-black text-orange-500 mt-1">✓</span>
+                <p className="text-lg text-slate-300">No approvals.</p>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="text-2xl font-black text-orange-500 mt-1">✓</span>
+                <p className="text-lg text-slate-300">No politics.</p>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="text-2xl font-black text-orange-500 mt-1">✓</span>
+                <p className="text-lg text-slate-300">No waiting.</p>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="text-2xl font-black text-orange-500 mt-1">✓</span>
+                <p className="text-xl font-bold text-white">Just results.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* How It Works - Simple 3-Step Flow */}
+        {/* Here's The Plan */}
         <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-6xl space-y-16">
-            <div className="text-center space-y-4">
-              <h2 className="text-5xl font-black text-slate-900">How It Works</h2>
-              <p className="text-xl text-slate-600">Three simple steps to execution and growth.</p>
+          <div className="mx-auto max-w-4xl space-y-16">
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">Here's The Plan</h2>
+            <div className="space-y-8">
+              <div className="space-y-2">
+                <p className="text-xl font-bold text-slate-900">You choose one measurable Power Move.</p>
+                <p className="text-slate-600">Define one outcome you're responsible for that helps us reach 30 clients.</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-xl font-bold text-slate-900">You execute daily.</p>
+                <p className="text-slate-600">Track your progress on the dashboard. Stay focused. Keep moving.</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-xl font-bold text-slate-900">You help us reach 30 clients.</p>
+                <p className="text-slate-600">Your execution, combined with the team's, gets us there.</p>
+              </div>
             </div>
-            <div className="grid gap-8 lg:grid-cols-3">
-              {[
-                {
-                  num: "1",
-                  title: "You Define One Power Move",
-                  desc: "One measurable outcome you are responsible for. Something that directly helps us reach 30 clients."
-                },
-                {
-                  num: "2",
-                  title: "We Track Everything",
-                  desc: "Your impact is visible on the dashboard. Numbers don't lie."
-                },
-                {
-                  num: "3",
-                  title: "Mission 30 Hits Target",
-                  desc: "We reach 30 clients. You receive a 30% Salary Hike. Transparent. Automatic. Fair."
-                }
-              ].map((item) => (
-                <div key={item.num} className="space-y-4 bg-slate-50 rounded-lg p-8 border border-slate-200">
-                  <div className="text-5xl font-black text-orange-500">{item.num}</div>
-                  <h3 className="text-xl font-black text-slate-900">{item.title}</h3>
-                  <p className="text-slate-700 leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+            <div className="pt-8 border-t border-slate-200 space-y-4">
+              <p className="text-2xl font-bold text-slate-900">When we win,</p>
+              <p className="text-2xl font-bold text-slate-900">your 30% Salary Hike is applied.</p>
+              <p className="text-3xl font-black text-orange-500">Automatically.</p>
             </div>
           </div>
         </section>
 
-        {/* This Is Real Alignment */}
-        <section className="bg-slate-950 px-6 py-24">
-          <div className="mx-auto max-w-6xl">
-            <div className="space-y-16 text-center">
-              <div className="space-y-4 max-w-3xl mx-auto">
-                <h2 className="text-5xl font-black text-white">
-                  This Is Real Alignment
-                </h2>
-                <p className="text-xl text-slate-300">
-                  When the company grows, you grow. When Mission 30 wins, you win.
-                </p>
-                <p className="text-lg text-slate-400 leading-relaxed">
-                  Not someday. Not maybe. Not based on mood. Based on results.
-                </p>
-              </div>
-              <div className="grid gap-8 lg:grid-cols-3">
-                {[
-                  { icon: "✓", label: "Clear", detail: "Mission 30 means 30 clients across 3 brands" },
-                  { icon: "✓", label: "Transparent", detail: "Your impact is visible on the dashboard" },
-                  { icon: "✓", label: "Earned", detail: "Your 30% Salary Hike is automatic when we win" }
-                ].map((item) => (
-                  <div key={item.label} className="space-y-2">
-                    <p className="text-3xl font-black text-orange-500">{item.icon}</p>
-                    <p className="text-lg font-bold text-white">{item.label}</p>
-                    <p className="text-slate-400">{item.detail}</p>
+        {/* Why This Exists */}
+        <section className="bg-slate-50 px-6 py-24">
+          <div className="mx-auto max-w-4xl space-y-12">
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">Why This Exists</h2>
+            <div className="grid gap-12 lg:grid-cols-2">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm uppercase tracking-widest font-bold text-slate-600 mb-3">Most companies say:</p>
+                  <div className="space-y-2 pl-6 border-l-4 border-slate-300">
+                    <p className="text-lg text-slate-600">"Work hard.</p>
+                    <p className="text-lg text-slate-600">We'll see."</p>
                   </div>
-                ))}
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm uppercase tracking-widest font-bold text-orange-600 mb-3">We say:</p>
+                  <div className="space-y-2 pl-6 border-l-4 border-orange-500">
+                    <p className="text-lg font-bold text-slate-900">"Help us reach 30 clients.</p>
+                    <p className="text-lg font-bold text-slate-900">You earn 30%."</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid gap-8 pt-8 border-t border-slate-200 lg:grid-cols-2">
+              <div className="space-y-2">
+                <p className="text-lg font-bold text-slate-900">Clear target.</p>
+                <p className="text-slate-600">30 clients across 3 brands.</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-lg font-bold text-slate-900">Clear reward.</p>
+                <p className="text-slate-600">30% Salary Hike when we get there.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Final CTA - Action Oriented */}
+        {/* This Is Alignment */}
+        <section className="bg-gradient-to-br from-slate-950 to-slate-900 px-6 py-24">
+          <div className="mx-auto max-w-4xl space-y-12 text-center">
+            <h2 className="text-4xl lg:text-5xl font-black text-white">This Is Alignment</h2>
+            <div className="space-y-8">
+              <div className="space-y-3">
+                <p className="text-lg text-slate-300">Your growth is not a promise.</p>
+                <p className="text-lg text-slate-300">It's a formula.</p>
+              </div>
+              <div className="space-y-4 py-8">
+                <p className="text-2xl font-black text-white">Execution</p>
+                <p className="text-3xl text-slate-500">→</p>
+                <p className="text-2xl font-black text-white">Clients</p>
+                <p className="text-3xl text-slate-500">→</p>
+                <p className="text-2xl font-black text-orange-500">Salary Hike</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
         <section className="bg-white px-6 py-24">
           <div className="mx-auto max-w-4xl text-center space-y-12">
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">Ready?</h2>
             <div className="space-y-6">
-              <h2 className="text-5xl font-black text-slate-900">
-                Ready?
-              </h2>
-              <div className="space-y-4 text-lg text-slate-600">
-                <p>Define your Power Move.</p>
-                <p>Start executing.</p>
-                <p>Help us reach 30 clients.</p>
-                <p className="font-semibold text-slate-900">And earn your 30% Salary Hike.</p>
-              </div>
+              <p className="text-xl text-slate-600">Define your Power Move.</p>
+              <p className="text-xl text-slate-600">Start building your 30%.</p>
             </div>
             <Link
               href="/signin"
@@ -184,12 +156,6 @@ export default function HomePage() {
             >
               Enter Dashboard
             </Link>
-            <div className="pt-8 border-t border-slate-200 space-y-2">
-              <p className="text-sm text-slate-600">Already have an account?</p>
-              <Link href="/signin" className="text-orange-500 hover:text-orange-600 font-bold">
-                Sign in here
-              </Link>
-            </div>
           </div>
         </section>
       </main>
