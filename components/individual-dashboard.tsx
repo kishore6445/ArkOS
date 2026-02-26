@@ -16,6 +16,8 @@ import { MissionBanner } from "@/components/mission-banner"
 import { TutorialCard } from "@/components/tutorial-card"
 import { TodaysFocus } from "@/components/todays-focus"
 import { TodaysActions } from "@/components/todays-actions"
+import { TodaysExecutionFocus } from "@/components/todays-execution-focus"
+import { PersonalGoalsCollapsible } from "@/components/personal-goals-collapsible"
 import { StatusBadge } from "@/components/status-badge"
 import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
@@ -591,109 +593,6 @@ export function IndividualDashboard({
       {/* MISSION CONTEXT - Show brand contribution to company mission */}
       <MissionContextSection type="individual" brandName={brandConfig.name} />
 
-      {/* HERO STATUS FLOW - Simplified primary focus */}
-      <div className='px-6 sm:px-8 lg:px-12 py-16 bg-gradient-to-b from-white to-slate-50'>
-        <div className='max-w-7xl mx-auto'>
-          {/* Primary Metric - Execution Discipline */}
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-start'>
-            
-            {/* Left: Today's Execution */}
-            <div className='space-y-8'>
-              <div className='space-y-4'>
-                <div className='flex items-center gap-3'>
-                  <span className='inline-block h-10 w-10 rounded-full bg-orange-500 text-white font-bold flex items-center justify-center'>1</span>
-                  <h2 className='text-2xl font-black text-slate-900'>Today's Execution</h2>
-                </div>
-                <p className='text-slate-600'>How you're performing against your power moves today</p>
-              </div>
-              
-              <div className='bg-white rounded-lg border border-slate-200 p-8'>
-                <div className='text-6xl font-black text-slate-900 leading-none mb-3'>
-                  {periodData.completed}
-                </div>
-                <p className='text-base text-slate-600 mb-6'>
-                  of {periodData.total} {periodData.total === 1 ? 'action' : 'actions'} completed
-                </p>
-                <div className='h-2 bg-slate-200 rounded-full overflow-hidden'>
-                  <div 
-                    className='h-full bg-orange-500 transition-all duration-500' 
-                    style={{ width: `${periodData.total > 0 ? (periodData.completed / periodData.total) * 100 : 0}%` }}
-                  />
-                </div>
-                <div className='mt-6 pt-6 border-t border-slate-200 flex items-center gap-3'>
-                  {status.color === '#16A34A' && <div className='h-3 w-3 rounded-full bg-green-600' />}
-                  {status.color === '#F59E0B' && <div className='h-3 w-3 rounded-full bg-amber-600' />}
-                  {status.color === '#DC2626' && <div className='h-3 w-3 rounded-full bg-red-600' />}
-                  <span className='text-sm font-semibold' style={{ color: status.color }}>{status.badge}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Your Reward + Goals Summary */}
-            <div className='space-y-8'>
-              <div className='space-y-4'>
-                <div className='flex items-center gap-3'>
-                  <span className='inline-block h-10 w-10 rounded-full bg-green-600 text-white font-bold flex items-center justify-center'>2</span>
-                  <h2 className='text-2xl font-black text-slate-900'>Your Reward</h2>
-                </div>
-                <p className='text-slate-600'>What you earn when Mission 30 succeeds</p>
-              </div>
-
-              <div className='bg-white rounded-lg border border-slate-200 p-8'>
-                <div className='text-6xl font-black text-green-600 leading-none mb-3'>
-                  30%
-                </div>
-                <p className='text-base text-slate-600 mb-6'>
-                  Salary increase achievable
-                </p>
-                <div className='pt-6 border-t border-slate-200 flex items-center gap-3'>
-                  <div className='h-3 w-3 rounded-full bg-green-600' />
-                  <span className='text-sm font-semibold text-slate-900'>Achievable</span>
-                </div>
-              </div>
-
-              {/* Goals Summary */}
-              {visibleTargets.length > 0 && (
-                <div className='bg-slate-50 rounded-lg border border-slate-200 p-6'>
-                  <p className='text-sm font-bold uppercase tracking-widest text-slate-600 mb-4'>Your Goals</p>
-                  <div className='space-y-3'>
-                    <div className='flex items-baseline justify-between'>
-                      <span className='text-xs text-slate-600'>Quantitative</span>
-                      <span className='text-2xl font-black text-slate-900'>{quantitativeTargets.length}</span>
-                    </div>
-                    <div className='flex items-baseline justify-between'>
-                      <span className='text-xs text-slate-600'>Qualitative</span>
-                      <span className='text-2xl font-black text-slate-900'>{qualitativeTargets.length}</span>
-                    </div>
-                    <div className='flex items-baseline justify-between'>
-                      <span className='text-xs text-slate-600'>Learning</span>
-                      <span className='text-2xl font-black text-slate-900'>{learningTargets.length}</span>
-                    </div>
-                  </div>
-                  {onTrackCount >= 0 && (
-                    <div className='pt-4 border-t border-slate-300 mt-4'>
-                      <p className='text-xs text-slate-600'>{onTrackCount} of {visibleTargets.length} on track</p>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* PERIOD EXECUTION SECTION - Minimal, clean summary */}
-      <div className='px-6 sm:px-8 lg:px-12 py-12 bg-white border-t border-slate-100'>
-        <div className='max-w-7xl mx-auto'>
-          <p className='text-xs font-bold uppercase tracking-widest text-slate-500 mb-3'>
-            {selectedPeriod === 'today' ? "Today's" : selectedPeriod === 'this-week' ? 'This Week\'s' : selectedPeriod === 'this-month' ? 'This Month\'s' : 'This Quarter\'s'} Summary
-          </p>
-          <p className='text-base font-semibold text-slate-900'>
-            {periodData.completed} of {periodData.total} actions completed
-          </p>
-        </div>
-      </div>
-
       {/* Power Moves Section - Cleaner table design */}
       <div className='bg-white border border-slate-200 rounded-lg overflow-hidden mt-6'>
         <div className='px-6 py-5 border-b border-slate-200 bg-slate-50 flex items-center justify-between'>
@@ -806,6 +705,18 @@ export function IndividualDashboard({
           </table>
         </div>
       </div>
+
+      {/* PHASE 4: Personal Goals - Collapsible section */}
+      <PersonalGoalsCollapsible
+        goals={personalTargets.map((target) => ({
+          id: target.id,
+          name: target.personalTargetName,
+          goalType: target.goalType,
+          currentValue: target.currentValue,
+          targetValue: target.targetValue,
+          status: target.status,
+        }))}
+      />
 
       {/* Today's Focus Card */}
       <TodaysFocus 
