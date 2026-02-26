@@ -534,120 +534,96 @@ export function IndividualDashboard({
       {/* MISSION CONTEXT - Show brand contribution to company mission */}
       <MissionContextSection type="individual" brandName={brandConfig.name} />
 
-      {/* HERO STATUS FLOW - Elevated, dramatic, interactive */}
-      <div className='px-6 sm:px-8 lg:px-12 py-16 bg-white'>
+      {/* HERO STATUS FLOW - Clean, spacious, low-cognitive-load design */}
+      <div className='px-6 sm:px-8 lg:px-12 py-20 bg-gradient-to-b from-white to-slate-50'>
         <div className='max-w-7xl mx-auto'>
-          {/* Dramatic 3-Step Flow */}
-          <div className='grid grid-cols-3 gap-8'>
+          {/* 3-Column Flow with Better Spacing */}
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-12'>
             
             {/* STEP 1 - Power Moves */}
-            <div
-              className='group text-left p-8 rounded-xl border-2 border-slate-200 hover:border-orange-400 hover:bg-orange-50 transition-all duration-300'
-            >
-              <div className='flex items-center justify-between mb-6'>
-                <div className='flex items-center gap-3'>
-                  <div className='h-10 w-10 rounded-full bg-orange-500 text-white font-bold flex items-center justify-center text-lg'>1</div>
-                  <span className='text-xs font-bold uppercase text-slate-600 tracking-wide'>Execution Discipline</span>
-                </div>
+            <div className='flex flex-col justify-start'>
+              <div className='mb-8'>
+                <span className='inline-block h-8 w-8 rounded-full bg-orange-500 text-white font-bold flex items-center justify-center text-sm mb-4'>1</span>
+                <h3 className='text-sm font-bold uppercase text-slate-600 tracking-widest mb-4'>Execution Discipline</h3>
               </div>
-              <div className='mb-6'>
-                <div className='text-7xl font-black text-slate-900 leading-none mb-2'>
+              <div className='mb-auto'>
+                <div className='text-6xl font-black text-slate-900 leading-none mb-3'>
                   {periodData.completed}
                 </div>
-                <div className='text-sm text-slate-500 font-semibold'>
-                  {periodData.total && `of ${periodData.total} completed`}
-                </div>
+                <p className='text-base text-slate-600'>
+                  of {periodData.total} {periodData.total === 1 ? 'action' : 'actions'}
+                </p>
               </div>
-              <div className='flex items-center gap-2 pt-4 border-t border-slate-200'>
-                {status.color === '#16A34A' && <CheckCircle className='h-5 w-5 text-green-600' />}
-                {status.color === '#F59E0B' && <AlertCircle className='h-5 w-5 text-amber-600' />}
-                {status.color === '#DC2626' && <XCircle className='h-5 w-5 text-red-600' />}
-                <span className='text-sm font-bold' style={{ color: status.color }}>{status.badge}</span>
+              <div className='mt-8 pt-6 border-t border-slate-200'>
+                <div className='flex items-center gap-3'>
+                  {status.color === '#16A34A' && <div className='h-3 w-3 rounded-full bg-green-600' />}
+                  {status.color === '#F59E0B' && <div className='h-3 w-3 rounded-full bg-amber-600' />}
+                  {status.color === '#DC2626' && <div className='h-3 w-3 rounded-full bg-red-600' />}
+                  <span className='text-sm font-semibold' style={{ color: status.color }}>{status.badge}</span>
+                </div>
               </div>
             </div>
 
             {/* STEP 2 - Outcomes - Personal Victory Targets by Type */}
-            <div className='p-8 rounded-xl border-2 border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all duration-300'>
-              <div className='flex items-center gap-3 mb-6'>
-                <div className='h-10 w-10 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center text-lg'>2</div>
-                <span className='text-xs font-bold uppercase text-slate-600 tracking-wide'>Your Goals</span>
+            <div className='flex flex-col justify-start'>
+              <div className='mb-8'>
+                <span className='inline-block h-8 w-8 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center text-sm mb-4'>2</span>
+                <h3 className='text-sm font-bold uppercase text-slate-600 tracking-widest mb-4'>Your Goals</h3>
               </div>
               {visibleTargets.length > 0 ? (
-                <div className='space-y-4'>
-                  {/* Goal Types Summary */}
-                  <div className='grid grid-cols-3 gap-3'>
-                    {/* Quantitative */}
-                    <div className='bg-white rounded-lg p-4 border border-blue-200'>
-                      <p className='text-xs font-bold text-slate-600 uppercase tracking-wide mb-2'>Quantitative</p>
-                      <p className='text-3xl font-black text-blue-600'>
-                        {quantitativeTargets.length}
-                      </p>
-                      <p className='text-xs text-slate-500 mt-2'>Measurable targets</p>
+                <div className='space-y-6'>
+                  {/* Goal Types Summary - Cleaner */}
+                  <div className='space-y-3'>
+                    <div className='flex items-baseline justify-between'>
+                      <span className='text-xs font-semibold text-slate-500 uppercase tracking-wider'>Quantitative</span>
+                      <span className='text-4xl font-black text-slate-900'>{quantitativeTargets.length}</span>
                     </div>
-
-                    {/* Qualitative */}
-                    <div className='bg-white rounded-lg p-4 border border-amber-200'>
-                      <p className='text-xs font-bold text-slate-600 uppercase tracking-wide mb-2'>Qualitative</p>
-                      <p className='text-3xl font-black text-amber-600'>
-                        {qualitativeTargets.length}
-                      </p>
-                      <p className='text-xs text-slate-500 mt-2'>Observable behaviors</p>
+                    <div className='flex items-baseline justify-between'>
+                      <span className='text-xs font-semibold text-slate-500 uppercase tracking-wider'>Qualitative</span>
+                      <span className='text-4xl font-black text-slate-900'>{qualitativeTargets.length}</span>
                     </div>
-
-                    {/* Learning */}
-                    <div className='bg-white rounded-lg p-4 border border-purple-200'>
-                      <p className='text-xs font-bold text-slate-600 uppercase tracking-wide mb-2'>Learning</p>
-                      <p className='text-3xl font-black text-purple-600'>
-                        {learningTargets.length}
-                      </p>
-                      <p className='text-xs text-slate-500 mt-2'>Development goals</p>
+                    <div className='flex items-baseline justify-between'>
+                      <span className='text-xs font-semibold text-slate-500 uppercase tracking-wider'>Learning</span>
+                      <span className='text-4xl font-black text-slate-900'>{learningTargets.length}</span>
                     </div>
-                  </div>
-
-                  <div className='space-y-2'>
-                    {visibleTargets.map((target) => (
-                      <div key={target.id} className='flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2'>
-                        <div>
-                          <p className='text-sm font-semibold text-slate-900'>{target.personalTargetName}</p>
-                          <p className='text-xs text-slate-500'>{target.goalType}</p>
-                        </div>
-                        <span className='text-xs font-semibold text-slate-600'>{target.status}</span>
-                      </div>
-                    ))}
                   </div>
 
                   {/* Overall Progress */}
-                  <div className='flex items-center gap-2 pt-4 border-t border-slate-200'>
-                    {onTrackCount === visibleTargets.length && <CheckCircle className='h-5 w-5 text-green-600' />}
-                    {onTrackCount > 0 && onTrackCount < visibleTargets.length && <AlertCircle className='h-5 w-5 text-amber-600' />}
-                    {onTrackCount === 0 && <XCircle className='h-5 w-5 text-red-600' />}
-                    <span className='text-sm font-bold'>
+                  <div className='pt-4 border-t border-slate-200'>
+                    <div className='flex items-center gap-2 mb-2'>
+                      {onTrackCount === visibleTargets.length && <div className='h-3 w-3 rounded-full bg-green-600' />}
+                      {onTrackCount > 0 && onTrackCount < visibleTargets.length && <div className='h-3 w-3 rounded-full bg-amber-600' />}
+                      {onTrackCount === 0 && <div className='h-3 w-3 rounded-full bg-red-600' />}
+                    </div>
+                    <p className='text-sm text-slate-600 font-medium'>
                       {onTrackCount} of {visibleTargets.length} on track
-                    </span>
+                    </p>
                   </div>
                 </div>
               ) : (
-                <div className='text-sm text-blue-600 font-semibold pt-4'>Define your personal goals to get started</div>
+                <div className='text-sm text-slate-500 font-medium'>Define your personal goals to get started</div>
               )}
             </div>
 
             {/* STEP 3 - Your Reward */}
-            <div className='p-8 rounded-xl border-2 border-slate-200 hover:border-green-400 hover:bg-green-50 transition-all duration-300'>
-              <div className='flex items-center gap-3 mb-6'>
-                <div className='h-10 w-10 rounded-full bg-green-600 text-white font-bold flex items-center justify-center text-lg'>3</div>
-                <span className='text-xs font-bold uppercase text-slate-600 tracking-wide'>Your Reward</span>
+            <div className='flex flex-col justify-start'>
+              <div className='mb-8'>
+                <span className='inline-block h-8 w-8 rounded-full bg-green-600 text-white font-bold flex items-center justify-center text-sm mb-4'>3</span>
+                <h3 className='text-sm font-bold uppercase text-slate-600 tracking-widest mb-4'>Your Reward</h3>
               </div>
-              <div className='mb-6'>
-                <div className='text-7xl font-black text-slate-900 leading-none mb-2'>
+              <div className='mb-auto'>
+                <div className='text-6xl font-black text-slate-900 leading-none mb-3'>
                   35%
                 </div>
-                <div className='text-sm text-slate-500 font-semibold'>
+                <p className='text-base text-slate-600'>
                   Salary increase achievable
-                </div>
+                </p>
               </div>
-              <div className='flex items-center gap-2 pt-4 border-t border-slate-200'>
-                <CheckCircle className='h-5 w-5 text-green-600' />
-                <span className='text-sm font-bold text-green-600'>Achievable</span>
+              <div className='mt-8 pt-6 border-t border-slate-200'>
+                <div className='flex items-center gap-3'>
+                  <div className='h-3 w-3 rounded-full bg-green-600' />
+                  <span className='text-sm font-semibold text-slate-900'>Achievable</span>
+                </div>
               </div>
             </div>
 
@@ -655,114 +631,67 @@ export function IndividualDashboard({
         </div>
       </div>
 
-      {/* PERIOD EXECUTION SECTION - Supporting details */}
-      <div className='px-6 sm:px-8 lg:px-12 py-8 bg-slate-50 border-t border-slate-200'>
+      {/* PERIOD EXECUTION SECTION - Minimal, clean summary */}
+      <div className='px-6 sm:px-8 lg:px-12 py-12 bg-white border-t border-slate-100'>
         <div className='max-w-7xl mx-auto'>
-          <p className='text-xs font-black uppercase tracking-[0.2em] text-slate-600 mb-6'>
-            {selectedPeriod === 'today' ? "Today's" : selectedPeriod === 'this-week' ? 'This Week\'s' : selectedPeriod === 'this-month' ? 'This Month\'s' : 'This Quarter\'s'} Execution
+          <p className='text-xs font-bold uppercase tracking-widest text-slate-500 mb-3'>
+            {selectedPeriod === 'today' ? "Today's" : selectedPeriod === 'this-week' ? 'This Week\'s' : selectedPeriod === 'this-month' ? 'This Month\'s' : 'This Quarter\'s'} Summary
           </p>
-          <p className='text-xs font-semibold text-stone-500'>
-            {periodData.completed} of {periodData.total} power move actions · {periodData.total - periodData.completed} remaining
+          <p className='text-base font-semibold text-slate-900'>
+            {periodData.completed} of {periodData.total} actions completed
           </p>
         </div>
       </div>
 
-      {/* Power Moves Section - Department Style */}
-      <div className='bg-white border border-stone-200 rounded-lg overflow-hidden'>
-        <div className='px-6 py-4 border-b border-stone-200 bg-stone-50 flex items-center justify-between'>
-          <div className='flex items-center gap-3'>
-            <div className='w-3 h-3 rounded-full' style={{ backgroundColor: '#16A34A' }} />
-            <p className='text-sm font-black uppercase tracking-[0.1em] text-stone-900'>Power Moves (Lead Measures)</p>
-            <span className='text-xs font-semibold text-stone-500'>Recurring Actions_test</span>
-          </div>
+      {/* Power Moves Section - Cleaner table design */}
+      <div className='bg-white border border-slate-200 rounded-lg overflow-hidden mt-6'>
+        <div className='px-6 py-5 border-b border-slate-200 bg-slate-50'>
+          <p className='text-sm font-bold uppercase tracking-wider text-slate-900'>Power Moves</p>
+          <p className='text-xs text-slate-500 mt-1'>Lead measures · Recurring actions</p>
         </div>
 
         <div className='overflow-x-auto'>
           <table className='w-full'>
             <thead>
-              <tr className='border-b border-stone-200 bg-stone-50'>
-                <th className='px-6 py-3 text-left text-xs font-bold text-stone-600 uppercase tracking-wider'>Power Move</th>
-                <th className='px-6 py-3 text-left text-xs font-bold text-stone-600 uppercase tracking-wider'>Priority</th>
-                <th className='px-6 py-3 text-left text-xs font-bold text-stone-600 uppercase tracking-wider'>Cadence</th>
-                <th className='px-6 py-3 text-center text-xs font-bold text-stone-600 uppercase tracking-wider'>Progress</th>
-                <th className='px-6 py-3 text-center text-xs font-bold text-stone-600 uppercase tracking-wider'>Status</th>
-                <th className='px-6 py-3 text-center text-xs font-bold text-stone-600 uppercase tracking-wider'>Action</th>
+              <tr className='border-b border-slate-200 bg-white'>
+                <th className='px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider'>Action</th>
+                <th className='px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider'>Frequency</th>
+                <th className='px-6 py-4 text-center text-xs font-bold text-slate-600 uppercase tracking-wider'>Progress</th>
+                <th className='px-6 py-4 text-center text-xs font-bold text-slate-600 uppercase tracking-wider'>Status</th>
+                <th className='px-6 py-4 text-center text-xs font-bold text-slate-600 uppercase tracking-wider' />
               </tr>
             </thead>
             <tbody>
               {myPowerMoves.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className='px-6 py-8 text-center text-sm text-stone-500'>
-                    No power moves yet for this period.
+                  <td colSpan={5} className='px-6 py-8 text-center text-sm text-slate-500'>
+                    No power moves yet
                   </td>
                 </tr>
               ) : (
-                myPowerMoves.map((pm, index) => {
-                  const isPrimary = index < 2
+                myPowerMoves.map((pm) => {
                   const { target, actual } = getTargetActualForPeriod(pm, selectedPeriod)
                   const percentage = target > 0 ? Math.round((actual / target) * 100) : 0
                   const executionStatus = percentage >= 100 ? 'Completed' : percentage > 0 ? 'In Progress' : 'Not Started'
-                  const cycleCount = Math.max(0, Math.floor(target || 0))
-                  const visibleCycles = Math.min(cycleCount, 30)
-                  const overflowCycles = Math.max(0, cycleCount - visibleCycles)
-                  const completedCycles = Math.min(Math.max(0, actual || 0), cycleCount)
 
                   return (
-                    <tr key={pm.id} className='border-b border-stone-200 hover:bg-stone-50'>
+                    <tr key={pm.id} className='border-b border-slate-200 hover:bg-slate-50 transition-colors'>
                       <td className='px-6 py-4'>
-                        <p className='text-sm font-bold text-stone-900'>{pm.name}</p>
-                        <p className='text-xs text-stone-500 mt-0.5'>{pm.brand}</p>
+                        <p className='text-sm font-semibold text-slate-900'>{pm.name}</p>
+                        <p className='text-xs text-slate-500 mt-0.5'>{pm.brand}</p>
                       </td>
-                      <td className='px-6 py-4'>
-                        <span className={cn(
-                          'inline-flex text-xs font-bold px-2 py-1 rounded',
-                          isPrimary 
-                            ? 'bg-amber-50 text-amber-700' 
-                            : 'text-stone-500'
-                        )}>
-                          {isPrimary ? 'Primary' : 'Supporting'}
-                        </span>
-                      </td>
-                      <td className='px-6 py-4 text-xs font-semibold text-stone-600'>
+                      <td className='px-6 py-4 text-sm font-medium text-slate-600'>
                         {pm.frequency}
                       </td>
-                      <td className='px-6 py-4'>
-                        <div className='flex items-center gap-3'>
-                          <div className='flex-1 max-w-xs'>
-                            <div className='flex flex-wrap items-center gap-1 text-stone-400'>
-                              {cycleCount === 0 ? (
-                                <span className='text-xs text-stone-400'>—</span>
-                              ) : (
-                                <>
-                                  {Array.from({ length: visibleCycles }).map((_, idx) => (
-                                    <span
-                                      key={idx}
-                                      className={cn(
-                                        'text-base leading-none font-black',
-                                        idx < completedCycles ? 'text-emerald-600' : 'text-stone-500'
-                                      )}
-                                    >
-                                      -
-                                    </span>
-                                  ))}
-                                  {overflowCycles > 0 && (
-                                    <span className='text-xs text-stone-500'>+{overflowCycles}</span>
-                                  )}
-                                </>
-                              )}
-                            </div>
-                          </div>
-                          <span className='text-xs font-bold text-stone-600 w-12 text-right'>
-                            {actual}/{target}
-                          </span>
-                        </div>
+                      <td className='px-6 py-4 text-center'>
+                        <span className='text-sm font-bold text-slate-900'>{actual}/{target}</span>
                       </td>
                       <td className='px-6 py-4 text-center'>
                         <span className={cn(
-                          'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold',
-                          executionStatus === 'Completed' ? 'bg-emerald-100 text-emerald-700' :
+                          'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold',
+                          executionStatus === 'Completed' ? 'bg-green-100 text-green-700' :
                           executionStatus === 'In Progress' ? 'bg-amber-100 text-amber-700' :
-                          'bg-stone-200 text-stone-700'
+                          'bg-slate-100 text-slate-700'
                         )}>
                           {executionStatus}
                         </span>
@@ -773,13 +702,13 @@ export function IndividualDashboard({
                           disabled={actual >= target}
                           onClick={() => handleCompletePowerMove(pm.id)}
                           className={cn(
-                            'text-xs font-bold',
+                            'text-xs font-semibold',
                             actual >= target
-                              ? 'bg-stone-200 text-stone-500 cursor-not-allowed'
-                              : 'bg-[#16A34A] hover:bg-[#15803d] text-white'
+                              ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                              : 'bg-green-600 hover:bg-green-700 text-white'
                           )}
                         >
-                          {actual >= target ? 'Done' : 'Complete'}
+                          {actual >= target ? 'Done' : 'Add'}
                         </Button>
                       </td>
                     </tr>
@@ -791,40 +720,34 @@ export function IndividualDashboard({
         </div>
       </div>
 
-      {/* Tasks Section - Department Style */}
-      <div className='bg-white border border-stone-200 rounded-lg overflow-hidden'>
-        <div className='px-6 py-4 border-b border-stone-200 bg-stone-50 flex items-center justify-between'>
-          <div className='flex items-center gap-3'>
-            <div className='w-3 h-3 rounded-full' style={{ backgroundColor: '#F59E0B' }} />
-            <p className='text-sm font-black uppercase tracking-[0.1em] text-stone-900'>Tasks</p>
-            <span className='text-xs font-semibold text-stone-500'>One-Time Activities</span>
-          </div>
+      {/* Tasks Section - Cleaner list design */}
+      <div className='bg-white border border-slate-200 rounded-lg overflow-hidden mt-6'>
+        <div className='px-6 py-5 border-b border-slate-200 bg-slate-50'>
+          <p className='text-sm font-bold uppercase tracking-wider text-slate-900'>Tasks</p>
+          <p className='text-xs text-slate-500 mt-1'>One-time activities</p>
         </div>
 
-        <div className='divide-y divide-stone-200'>
+        <div className='divide-y divide-slate-200'>
           {tasks.length === 0 ? (
-            <p className='px-6 py-4 text-sm text-stone-500'>No tasks for this period</p>
+            <p className='px-6 py-8 text-sm text-slate-500 text-center'>No tasks for this period</p>
           ) : (
             tasks.map((task) => (
-              <div key={task.id} className='px-6 py-4 flex items-center gap-4 hover:bg-stone-50'>
+              <div key={task.id} className='px-6 py-4 flex items-center gap-4 hover:bg-slate-50 transition-colors'>
                 <Checkbox 
                   checked={task.completed} 
                   onCheckedChange={() => toggleTask(task.id)} 
                   className='h-5 w-5' 
                 />
-                <div className='flex-1'>
-                  <p className={cn('text-sm font-bold text-stone-900', task.completed && 'line-through text-stone-400')}>
+                <div className='flex-1 min-w-0'>
+                  <p className={cn('text-sm font-semibold text-slate-900', task.completed && 'line-through text-slate-400')}>
                     {task.title}
                   </p>
                 </div>
-                <Badge variant='outline' className='text-xs font-semibold'>
-                  {task.brand}
-                </Badge>
                 <span className={cn(
-                  'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold',
-                  task.completed ? 'bg-emerald-100 text-emerald-700' : 'bg-stone-200 text-stone-700'
+                  'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap',
+                  task.completed ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700'
                 )}>
-                  {task.completed ? 'Completed' : 'Pending'}
+                  {task.completed ? 'Done' : 'Pending'}
                 </span>
               </div>
             ))
@@ -832,40 +755,34 @@ export function IndividualDashboard({
         </div>
       </div>
 
-      {/* Commitments Section - Department Style */}
-      <div className='bg-white border border-stone-200 rounded-lg overflow-hidden'>
-        <div className='px-6 py-4 border-b border-stone-200 bg-stone-50 flex items-center justify-between'>
-          <div className='flex items-center gap-3'>
-            <div className='w-3 h-3 rounded-full' style={{ backgroundColor: '#DC2626' }} />
-            <p className='text-sm font-black uppercase tracking-[0.1em] text-stone-900'>Commitments</p>
-            <span className='text-xs font-semibold text-stone-500'>Team Promises</span>
-          </div>
+      {/* Commitments Section - Cleaner list design */}
+      <div className='bg-white border border-slate-200 rounded-lg overflow-hidden mt-6'>
+        <div className='px-6 py-5 border-b border-slate-200 bg-slate-50'>
+          <p className='text-sm font-bold uppercase tracking-wider text-slate-900'>Commitments</p>
+          <p className='text-xs text-slate-500 mt-1'>Team promises</p>
         </div>
 
-        <div className='divide-y divide-stone-200'>
+        <div className='divide-y divide-slate-200'>
           {commitments.length === 0 ? (
-            <p className='px-6 py-4 text-sm text-stone-500'>No commitments for this period</p>
+            <p className='px-6 py-8 text-sm text-slate-500 text-center'>No commitments for this period</p>
           ) : (
             commitments.map((commitment) => (
-              <div key={commitment.id} className='px-6 py-4 flex items-center gap-4 hover:bg-stone-50'>
+              <div key={commitment.id} className='px-6 py-4 flex items-center gap-4 hover:bg-slate-50 transition-colors'>
                 <Checkbox 
                   checked={commitment.completed} 
                   onCheckedChange={() => toggleCommitment(commitment.id)} 
                   className='h-5 w-5' 
                 />
-                <div className='flex-1'>
-                  <p className={cn('text-sm font-bold text-stone-900', commitment.completed && 'line-through text-stone-400')}>
+                <div className='flex-1 min-w-0'>
+                  <p className={cn('text-sm font-semibold text-slate-900', commitment.completed && 'line-through text-slate-400')}>
                     {commitment.title}
                   </p>
                 </div>
-                <Badge variant='outline' className='text-xs font-semibold'>
-                  {commitment.brand}
-                </Badge>
                 <span className={cn(
-                  'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold',
-                  commitment.completed ? 'bg-emerald-100 text-emerald-700' : 'bg-stone-200 text-stone-700'
+                  'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap',
+                  commitment.completed ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700'
                 )}>
-                  {commitment.completed ? 'Completed' : 'Pending'}
+                  {commitment.completed ? 'Done' : 'Pending'}
                 </span>
               </div>
             ))
