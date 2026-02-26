@@ -25,7 +25,7 @@ export default function HomePage() {
       </header>
 
       <main className="space-y-0">
-        {/* HERO - 50% Salary Growth as Dominant Message */}
+        {/* HERO - 35% Salary Growth as Dominant Message */}
         <section className="bg-gradient-to-br from-slate-950 to-slate-900 px-6 py-48">
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-20 lg:grid-cols-2 items-center">
@@ -34,13 +34,13 @@ export default function HomePage() {
                 <div className="space-y-6">
                   <p className="text-sm uppercase tracking-[0.2em] text-orange-500 font-bold">Your salary growth</p>
                   <h1 className="text-7xl lg:text-8xl font-black leading-tight text-white">
-                    50%
+                    35%
                   </h1>
                   <p className="text-2xl text-slate-300 font-semibold">
                     When Mission 50 wins.
                   </p>
                   <p className="text-lg text-slate-400 leading-relaxed max-w-lg">
-                    Your Power Moves directly impact the mission. Mission succeeds. You earn 50% hike. No politics. No ambiguity.
+                    Your Power Moves directly impact the mission. Mission succeeds. You earn 35% hike. No politics. No ambiguity.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -84,7 +84,7 @@ export default function HomePage() {
                       <div className="h-12 w-12 rounded-lg bg-green-500 flex items-center justify-center text-white font-black text-lg">3</div>
                       <div>
                         <p className="text-sm text-slate-400">You Earn</p>
-                        <p className="font-semibold text-white">Your 50% salary hike</p>
+                        <p className="font-semibold text-white">Your 35% salary hike</p>
                       </div>
                     </div>
                   </div>
@@ -166,7 +166,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-4xl text-center space-y-12">
             <div className="space-y-4">
               <h2 className="text-5xl font-black text-slate-900">
-                Ready to earn your 50%?
+                Ready to earn your 35%?
               </h2>
               <p className="text-xl text-slate-600">
                 Start here. Define one power move. Show what you're capable of.

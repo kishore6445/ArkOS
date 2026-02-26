@@ -639,7 +639,7 @@ export function IndividualDashboard({
               </div>
               <div className='mb-6'>
                 <div className='text-7xl font-black text-slate-900 leading-none mb-2'>
-                  50%
+                  35%
                 </div>
                 <div className='text-sm text-slate-500 font-semibold'>
                   Salary increase achievable

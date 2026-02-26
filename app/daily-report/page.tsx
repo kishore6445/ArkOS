@@ -89,7 +89,7 @@ export default function DailyReportPage() {
             </p>
             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-700">
               <div>
-                <p className="text-sm text-slate-400">Your 50% Hike Depends On</p>
+                <p className="text-sm text-slate-400">Your 35% Hike Depends On</p>
                 <p className="text-2xl font-black text-orange-500">Daily Execution</p>
               </div>
               <div>
