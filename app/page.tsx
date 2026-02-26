@@ -1,6 +1,8 @@
 import Link from "next/link"
+import { COMPANY_MISSION } from "@/lib/mission-context"
 
 export default function HomePage() {
+  const progress = (COMPANY_MISSION.totalAchieved / COMPANY_MISSION.totalTarget) * 100
   return (
     <div className="min-h-screen bg-white text-slate-900">
       {/* Header */}
@@ -37,6 +39,12 @@ export default function HomePage() {
               <div className="space-y-8 text-lg text-slate-300">
                 <p>When ArkMedis reaches 30 clients,</p>
                 <p>you receive a 30% Salary Hike.</p>
+                <div className="pt-4 border-t border-slate-700">
+                  <p className="text-sm font-semibold text-orange-400">We're at {COMPANY_MISSION.totalAchieved}/30 clients. {Math.round(progress)}% there.</p>
+                  <div className="mt-2 h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-orange-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -190,7 +198,7 @@ export default function HomePage() {
               href="/signin"
               className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-12 py-5 text-lg font-bold text-white transition hover:bg-orange-600"
             >
-              Enter Dashboard
+              Build Your 30%
             </Link>
           </div>
         </section>

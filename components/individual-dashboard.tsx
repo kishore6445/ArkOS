@@ -12,6 +12,8 @@ import { useBrand } from "@/lib/brand-context"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { MissionContextSection } from "@/components/mission-context-section"
 import { PowerMoveModal, type PowerMoveFormData } from "@/components/power-move-modal"
+import { MissionBanner } from "@/components/mission-banner"
+import { TutorialCard } from "@/components/tutorial-card"
 import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
 
@@ -521,6 +523,9 @@ export function IndividualDashboard({
 
   return (
     <section className='pb-8 space-y-0' aria-labelledby='personal-dashboard-heading'>
+      {/* Mission 30 Progress Banner */}
+      <MissionBanner />
+      
       {/* PROFILE HEADER - LinkedIn-style identity section */}
       <div className='bg-gradient-to-r from-slate-900 to-slate-800 text-white px-6 sm:px-8 lg:px-12 py-12'>
         <div className='max-w-7xl mx-auto'>
@@ -737,6 +742,17 @@ export function IndividualDashboard({
             Add Power Move
           </Button>
         </div>
+
+        {/* Tutorial: Power Moves Explained */}
+        <TutorialCard
+          id='power-moves-intro'
+          title='What are Power Moves?'
+          description='Power Moves are recurring actions you own that directly impact Mission 30. Execute them daily to help us reach 30 clients and earn your 30% salary hike.'
+          action={{
+            label: 'Add Your First Power Move',
+            onClick: () => setShowPowerMoveModal(true),
+          }}
+        />
 
         <div className='overflow-x-auto'>
           <table className='w-full'>
