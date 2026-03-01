@@ -3,6 +3,8 @@ import { COMPANY_MISSION } from "@/lib/mission-context"
 
 export default function HomePage() {
   const progress = (COMPANY_MISSION.totalAchieved / COMPANY_MISSION.totalTarget) * 100
+  const clientsRemaining = COMPANY_MISSION.totalTarget - COMPANY_MISSION.totalAchieved
+  
   return (
     <div className="min-h-screen bg-white text-slate-900">
       {/* Header */}
@@ -189,7 +191,7 @@ export default function HomePage() {
                 <div className="space-y-2">
                   <p className="text-sm font-bold uppercase tracking-widest text-slate-600">Current Progress</p>
                   <p className="text-4xl font-black text-slate-900">{COMPANY_MISSION.totalAchieved} <span className="text-slate-400">/ 30</span></p>
-                  <p className="text-lg text-slate-600">Clients Needed: <span className="font-bold">{COMPANY_MISSION.totalTarget - COMPANY_MISSION.totalAchieved}</span></p>
+                  <p className="text-lg text-slate-600">Clients Needed: <span className="font-bold">{clientsRemaining}</span></p>
                 </div>
                 <div className="pt-4 border-t border-slate-200">
                   <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
