@@ -19,6 +19,7 @@ import { TodaysActions } from "@/components/todays-actions"
 import { TodaysExecutionFocus } from "@/components/todays-execution-focus"
 import { PersonalGoalsCollapsible } from "@/components/personal-goals-collapsible"
 import { ConnectionMapView } from "@/components/connection-map-view"
+import { PowerMovesRefined } from "@/components/power-moves-refined"
 import { StatusBadge } from "@/components/status-badge"
 import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
@@ -650,116 +651,26 @@ export function IndividualDashboard({
       {/* MISSION CONTEXT - Show brand contribution to company mission */}
       <MissionContextSection type="individual" brandName={brandConfig.name} />
 
-      {/* Power Moves Section - Cleaner table design */}
-      <div className='bg-white border border-slate-200 rounded-lg overflow-hidden mt-6'>
-        <div className='px-6 py-5 border-b border-slate-200 bg-slate-50 flex items-center justify-between'>
-          <div>
-            <p className='text-sm font-bold uppercase tracking-wider text-slate-900'>Power Moves</p>
-            <p className='text-xs text-slate-500 mt-1'>Lead measures · Recurring actions</p>
-          </div>
-          <Button
-            size='sm'
-            onClick={() => setShowPowerMoveModal(true)}
-            className='bg-orange-500 hover:bg-orange-600 text-white gap-2'
-          >
-            <Plus className='h-4 w-4' />
-            Add Power Move
-          </Button>
-        </div>
 
-        {/* Tutorial: Power Moves Explained */}
-        {(() => {
-          try {
-            return (
-              <TutorialCard
-                id='power-moves-intro'
-                title='What are Power Moves?'
-                description='Power Moves are recurring actions you own that directly impact Mission 30. Execute them daily to help us reach 30 clients and earn your 30% salary hike.'
-                action={{
-                  label: 'Add Your First Power Move',
-                  onClick: () => setShowPowerMoveModal(true),
-                }}
-              />
-            )
-          } catch (error) {
-            console.log("[v0] TutorialCard error:", error)
-            return null
-          }
-        })()}
-
-        <div className='overflow-x-auto'>
-          <table className='w-full'>
-            <thead>
-              <tr className='border-b border-slate-200 bg-white'>
-                <th className='px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider'>Action</th>
-                <th className='px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider'>Frequency</th>
-                <th className='px-6 py-4 text-center text-xs font-bold text-slate-600 uppercase tracking-wider'>Progress</th>
-                <th className='px-6 py-4 text-center text-xs font-bold text-slate-600 uppercase tracking-wider'>Status</th>
-                <th className='px-6 py-4 text-center text-xs font-bold text-slate-600 uppercase tracking-wider' />
-              </tr>
-            </thead>
-            <tbody>
-              {myPowerMoves.length === 0 ? (
-                <tr>
-                  <td colSpan={5} className='px-6 py-8 text-center text-sm text-slate-500'>
-                    No power moves yet
-                  </td>
-                </tr>
-              ) : (
-                myPowerMoves.map((pm) => {
-                  const { target, actual } = getTargetActualForPeriod(pm, selectedPeriod)
-                  const percentage = target > 0 ? Math.round((actual / target) * 100) : 0
-                  const executionStatus = percentage >= 100 ? 'Completed' : percentage > 0 ? 'In Progress' : 'Not Started'
-
-                  return (
-                    <tr key={pm.id} className='border-b border-slate-200 hover:bg-slate-50 transition-colors'>
-                      <td className='px-6 py-4'>
-                        <p className='text-sm font-semibold text-slate-900'>{pm.name}</p>
-                        <p className='text-xs text-slate-500 mt-0.5'>{pm.brand}</p>
-                      </td>
-                      <td className='px-6 py-4 text-sm font-medium text-slate-600'>
-                        {pm.frequency}
-                      </td>
-                      <td className='px-6 py-4 text-center'>
-                        <span className='text-sm font-bold text-slate-900'>{actual}/{target}</span>
-                      </td>
-                      <td className='px-6 py-4 text-center'>
-                        {(() => {
-                          try {
-                            return (
-                              <StatusBadge
-                                status={executionStatus === 'Completed' ? 'complete' : executionStatus === 'In Progress' ? 'pending' : 'behind'}
-                                label={executionStatus}
-                                showIcon={true}
-                              />
-                            )
-                          } catch (error) {
-                            console.log("[v0] StatusBadge error:", error)
-                            return <span className='text-xs font-semibold text-slate-600'>{executionStatus}</span>
-                          }
-                        })()}
-                      </td>
-                      <td className='px-6 py-4 text-center'>
-                        <Button
-                          size='sm'
-                          disabled={actual >= target}
-                          onClick={() => handleCompletePowerMove(pm.id)}
-                          className={cn(
-                            'text-xs font-semibold hover-scale',
-                            actual >= target
-                              ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                              : 'bg-green-600 hover:bg-green-700 text-white'
-                          )}
-                        >
-                          {actual >= target ? 'Done' : 'Add'}
-                        </Button>
-                      </td>
-                    </tr>
-                  )
-                })
-              )}
-            </tbody>
-          </table>
+      {/* Power Moves Section - Refined & Focused */}
+      <div className='px-6 sm:px-8 lg:px-12 py-12 bg-white border-t border-slate-100'>
+        <div className='max-w-7xl mx-auto'>
+          <PowerMovesRefined
+            powerMoves={myPowerMoves.map((pm) => {
+              const { target, actual } = getTargetActualForPeriod(pm, selectedPeriod)
+              const status = actual >= target ? "On Track" : actual > 0 ? "At Risk" : "Behind"
+              return {
+                id: pm.id,
+                name: pm.name,
+                frequency: pm.frequency,
+                progress: actual,
+                target: target,
+                status: status as "On Track" | "At Risk" | "Behind",
+              }
+            })}
+            onAddPowerMove={() => setShowPowerMoveModal(true)}
+            onIncrementPowerMove={handleCompletePowerMove}
+          />
         </div>
       </div>
 
