@@ -1,9 +1,14 @@
+"use client"
+
 import Link from "next/link"
 import { COMPANY_MISSION } from "@/lib/mission-context"
 
 export default function HomePage() {
-  const progress = (COMPANY_MISSION.totalAchieved / COMPANY_MISSION.totalTarget) * 100
-  const clientsRemaining = COMPANY_MISSION.totalTarget - COMPANY_MISSION.totalAchieved
+  // Safely calculate progress with default values
+  const totalAchieved = COMPANY_MISSION?.totalAchieved ?? 0
+  const totalTarget = COMPANY_MISSION?.totalTarget ?? 30
+  const progress = totalTarget > 0 ? (totalAchieved / totalTarget) * 100 : 0
+  const clientsRemaining = Math.max(0, totalTarget - totalAchieved)
   
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -54,7 +59,7 @@ export default function HomePage() {
             </div>
 
             <div className="pt-8 border-t border-slate-800">
-              <p className="text-sm font-semibold text-orange-400">Progress: {COMPANY_MISSION.totalAchieved}/30 clients • {Math.round(progress)}% complete</p>
+              <p className="text-sm font-semibold text-orange-400">Progress: {totalAchieved}/30 clients • {Math.round(progress)}% complete</p>
               <div className="mt-3 h-2 bg-slate-800 rounded-full overflow-hidden">
                 <div className="h-full bg-orange-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
               </div>
@@ -190,7 +195,7 @@ export default function HomePage() {
               <div className="bg-slate-50 rounded-lg border border-slate-200 p-8 space-y-4">
                 <div className="space-y-2">
                   <p className="text-sm font-bold uppercase tracking-widest text-slate-600">Current Progress</p>
-                  <p className="text-4xl font-black text-slate-900">{COMPANY_MISSION.totalAchieved} <span className="text-slate-400">/ 30</span></p>
+                  <p className="text-4xl font-black text-slate-900">{totalAchieved} <span className="text-slate-400">/ 30</span></p>
                   <p className="text-lg text-slate-600">Clients Needed: <span className="font-bold">{clientsRemaining}</span></p>
                 </div>
                 <div className="pt-4 border-t border-slate-200">
