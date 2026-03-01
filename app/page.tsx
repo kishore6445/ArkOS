@@ -31,35 +31,45 @@ export default function HomePage() {
         <section className="bg-gradient-to-br from-slate-950 to-slate-900 px-6 py-32">
           <div className="mx-auto max-w-4xl space-y-12">
             <div className="space-y-8">
-              <h1 className="text-5xl lg:text-6xl font-black text-white leading-tight">
-                Your Growth Is Not Given.
-                <br />
-                It Is Built.
-              </h1>
+              <div className="space-y-4">
+                <p className="text-orange-400 font-bold uppercase tracking-widest text-sm">No Politics. Only Results.</p>
+                <h1 className="text-5xl lg:text-6xl font-black text-white leading-tight">
+                  Your Growth Is Not Given.
+                  <br />
+                  It Is Built.
+                </h1>
+              </div>
               <div className="space-y-8 text-lg text-slate-300">
-                <p>When ArkMedis reaches 30 clients,</p>
-                <p>you receive a 30% Salary Hike.</p>
-                <div className="pt-4 border-t border-slate-700">
-                  <p className="text-sm font-semibold text-orange-400">We're at {COMPANY_MISSION.totalAchieved}/30 clients. {Math.round(progress)}% there.</p>
-                  <div className="mt-2 h-2 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-orange-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                <p className="text-xl text-slate-200">Define your Power Move. Execute daily. Help us reach 30 clients.</p>
+                <p className="text-xl font-semibold text-orange-300">And earn the 30% salary increase you deserve.</p>
+                <div className="pt-6 border-t border-slate-700">
+                  <p className="text-sm font-semibold text-orange-400">Progress: {COMPANY_MISSION.totalAchieved}/30 clients • {Math.round(progress)}% complete</p>
+                  <div className="mt-3 h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4 pt-8 border-t border-slate-800">
-              <div className="space-y-2">
-                <p className="text-lg text-slate-300">Not requested.</p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-lg text-slate-300">Not negotiated.</p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-lg text-slate-300">Not delayed.</p>
-              </div>
-              <div className="space-y-2 pt-2">
-                <p className="text-2xl font-black text-orange-500">Earned.</p>
+              <p className="text-sm text-slate-400 uppercase tracking-widest font-bold">The Guarantee</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                  <p className="text-lg text-slate-300 font-semibold">Not requested</p>
+                  <p className="text-xs text-slate-500 mt-1">No approval needed</p>
+                </div>
+                <div>
+                  <p className="text-lg text-slate-300 font-semibold">Not negotiated</p>
+                  <p className="text-xs text-slate-500 mt-1">It's the deal</p>
+                </div>
+                <div>
+                  <p className="text-lg text-slate-300 font-semibold">Not delayed</p>
+                  <p className="text-xs text-slate-500 mt-1">When we hit 30</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-black text-orange-500">Earned</p>
+                  <p className="text-xs text-slate-500 mt-1">By all of us</p>
+                </div>
               </div>
             </div>
           </div>
