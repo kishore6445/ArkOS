@@ -670,6 +670,24 @@ export function IndividualDashboard({
             })}
             onAddPowerMove={() => setShowPowerMoveModal(true)}
             onIncrementPowerMove={handleCompletePowerMove}
+            onToast={(config) => {
+              toast({
+                title: config.title,
+                description: config.description,
+                ...(config.action && {
+                  action: (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={config.action.onClick}
+                      className="bg-white hover:bg-slate-100"
+                    >
+                      {config.action.label}
+                    </Button>
+                  ),
+                }),
+              })
+            }}
           />
         </div>
       </div>

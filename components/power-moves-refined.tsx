@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ChevronDown, Plus, TrendingUp } from "lucide-react"
+import { ChevronDown, Plus, TrendingUp, ChevronRight, RotateCcw } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface PowerMove {
@@ -17,16 +17,19 @@ interface PowerMove {
 interface PowerMovesRefinedProps {
   powerMoves: PowerMove[]
   onAddPowerMove?: () => void
-  onIncrementPowerMove?: (id: string) => void
+  onIncrementPowerMove?: (id: string, onUndoCallback?: (id: string) => void) => void
+  onToast?: (config: { title: string; description?: string; action?: { label: string; onClick: () => void } }) => void
 }
 
 export function PowerMovesRefined({
   powerMoves,
   onAddPowerMove,
   onIncrementPowerMove,
+  onToast,
 }: PowerMovesRefinedProps) {
   const [expandedId, setExpandedId] = useState<string | null>(powerMoves[0]?.id ?? null)
   const [showAllMoves, setShowAllMoves] = useState(false)
+  const [lastAction, setLastAction] = useState<{ moveId: string; previousProgress: number } | null>(null)
 
   // Sort by priority: At Risk → Behind → On Track
   const prioritySortedMoves = [...powerMoves].sort((a, b) => {
@@ -41,11 +44,11 @@ export function PowerMovesRefined({
   const getStatusColor = (status: string) => {
     switch (status) {
       case "On Track":
-        return "bg-green-50 border-green-200"
+        return "bg-green-50 border-green-200 hover:border-green-300 hover:shadow-[0_0_0_3px_rgba(34,197,94,0.1)]"
       case "At Risk":
-        return "bg-amber-50 border-amber-200"
+        return "bg-amber-50 border-amber-200 hover:border-amber-300 hover:shadow-[0_0_0_3px_rgba(245,158,11,0.1)]"
       case "Behind":
-        return "bg-red-50 border-red-200"
+        return "bg-red-50 border-red-200 hover:border-red-300 hover:shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
       default:
         return "bg-slate-50 border-slate-200"
     }
@@ -68,15 +71,43 @@ export function PowerMovesRefined({
     return move.target > 0 ? Math.round((move.progress / move.target) * 100) : 0
   }
 
+  const handleLogProgress = (moveId: string, move: PowerMove) => {
+    // Store previous state for undo
+    setLastAction({ moveId, previousProgress: move.progress })
+    
+    // Call the increment handler
+    onIncrementPowerMove?.(moveId, () => {
+      // Undo callback function
+      setLastAction(null)
+    })
+    
+    // Show success toast with undo option
+    onToast?.({
+      title: "Progress logged",
+      description: `${move.name} updated to ${move.progress + 1}/${move.target}`,
+      action: {
+        label: "Undo",
+        onClick: () => {
+          // The undo callback will be called when user clicks undo
+          onIncrementPowerMove?.(moveId)
+          setLastAction(null)
+        },
+      },
+    })
+    
+    // Close expanded view after logging
+    setExpandedId(null)
+  }
+
   return (
     <section className="space-y-6">
       {/* Header */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-lg bg-orange-100 flex items-center justify-center">
             <TrendingUp className="h-5 w-5 text-orange-600" />
           </div>
-          <div>
+          <div className="flex-1">
             <h2 className="text-2xl font-black text-slate-900">Power Moves</h2>
             <p className="text-sm text-slate-600">{powerMoves.length} active {powerMoves.length === 1 ? "move" : "moves"}</p>
           </div>
@@ -84,7 +115,7 @@ export function PowerMovesRefined({
         {powerMoves.length > 0 && (
           <Button
             onClick={onAddPowerMove}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold gap-2"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold gap-2 h-10 focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2"
           >
             <Plus className="h-4 w-4" />
             Add Power Move
@@ -106,10 +137,20 @@ export function PowerMovesRefined({
             <div
               key={move.id}
               className={cn(
-                "border rounded-xl p-6 transition-all duration-200 cursor-pointer hover:shadow-md",
+                "border rounded-xl p-6 transition-all duration-200 cursor-pointer",
                 getStatusColor(move.status),
               )}
               onClick={() => setExpandedId(expandedId === move.id ? null : move.id)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault()
+                  setExpandedId(expandedId === move.id ? null : move.id)
+                }
+              }}
+              aria-expanded={expandedId === move.id}
+              aria-label={`Power move: ${move.name}, Status: ${move.status}, Progress: ${move.progress}/${move.target}`}
             >
               {/* Main Content */}
               <div className="space-y-4">
@@ -119,22 +160,20 @@ export function PowerMovesRefined({
                     <h3 className="text-lg font-bold text-slate-900 text-balance">{move.name}</h3>
                     <p className="text-sm text-slate-600 mt-1">{move.frequency}</p>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setExpandedId(expandedId === move.id ? null : move.id)
-                    }}
-                    className="flex-shrink-0 p-2 hover:bg-white/50 rounded-lg transition-colors"
-                  >
+                  <div className="flex items-center gap-2 flex-shrink-0">
                     <span className={cn(
-                      "text-sm font-semibold transition-all",
-                      move.status === "On Track" ? "text-green-600" : 
-                      move.status === "At Risk" ? "text-amber-600" : 
-                      "text-red-600"
+                      "px-3 py-1 rounded-full text-xs font-bold transition-colors",
+                      move.status === "On Track" ? "bg-green-100 text-green-700" : 
+                      move.status === "At Risk" ? "bg-amber-100 text-amber-700" : 
+                      "bg-red-100 text-red-700"
                     )}>
                       {move.status}
                     </span>
-                  </button>
+                    <ChevronRight className={cn(
+                      "h-5 w-5 text-slate-400 transition-transform duration-200",
+                      expandedId === move.id ? "rotate-90" : ""
+                    )} />
+                  </div>
                 </div>
 
                 {/* Progress Bar */}
@@ -143,7 +182,7 @@ export function PowerMovesRefined({
                     <span className="text-slate-700 font-semibold">{move.progress}/{move.target}</span>
                     <span className="text-slate-600 font-medium">{getProgressPercentage(move)}%</span>
                   </div>
-                  <div className="h-2.5 bg-white/70 rounded-full overflow-hidden">
+                  <div className="h-2.5 bg-white/70 rounded-full overflow-hidden ring-1 ring-inset ring-white/50">
                     <div
                       className={cn(
                         "h-full rounded-full transition-all duration-300",
@@ -156,18 +195,33 @@ export function PowerMovesRefined({
                   </div>
                 </div>
 
-                {/* Expanded Content */}
+                {/* Expanded Content - Log Progress Button */}
                 {expandedId === move.id && (
-                  <div className="pt-4 border-t border-white/40 space-y-3">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        onIncrementPowerMove?.(move.id)
-                      }}
-                      className="w-full py-2.5 px-4 bg-white/50 hover:bg-white rounded-lg font-semibold text-slate-900 transition-colors"
-                    >
-                      Log Progress
-                    </button>
+                  <div className="pt-4 border-t border-white/40 space-y-3 animate-accordion-down">
+                    {move.progress >= move.target ? (
+                      <div className="text-center py-3 bg-white/30 rounded-lg">
+                        <p className="text-sm font-semibold text-slate-900">Target reached!</p>
+                        <p className="text-xs text-slate-600 mt-1">Great work on this power move</p>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleLogProgress(move.id, move)
+                        }}
+                        className="w-full py-3 px-4 bg-white/50 hover:bg-white focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 rounded-lg font-semibold text-slate-900 transition-all duration-200 flex items-center justify-center gap-2 group"
+                      >
+                        <span>Log Progress</span>
+                        <span className="text-lg group-hover:translate-x-1 transition-transform duration-200">→</span>
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {/* Visual hint when not expanded */}
+                {expandedId !== move.id && (
+                  <div className="text-xs text-slate-500 font-medium">
+                    Click to log progress
                   </div>
                 )}
               </div>
@@ -179,7 +233,7 @@ export function PowerMovesRefined({
         {hiddenCount > 0 && !showAllMoves && (
           <button
             onClick={() => setShowAllMoves(true)}
-            className="w-full py-3 px-4 border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors text-slate-700 font-semibold flex items-center justify-center gap-2"
+            className="w-full py-3 px-4 border border-slate-300 rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-200 text-slate-700 font-semibold flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
           >
             <ChevronDown className="h-4 w-4" />
             Show {hiddenCount} more {hiddenCount === 1 ? "move" : "moves"}
