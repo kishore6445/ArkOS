@@ -89,42 +89,44 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How You Win */}
+        {/* The Plan - The 3 Steps */}
         <section className="bg-slate-50 px-6 py-24">
           <div className="mx-auto max-w-4xl space-y-16">
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">How You Win</h2>
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">The Plan</h2>
             <div className="space-y-12">
               <div className="space-y-4">
                 <div className="flex items-baseline gap-4">
                   <span className="text-3xl font-black text-orange-500">1</span>
-                  <h3 className="text-2xl font-black text-slate-900">Own One Power Move</h3>
+                  <h3 className="text-2xl font-black text-slate-900">Choose One Power Move</h3>
                 </div>
                 <div className="space-y-3 ml-16">
-                  <p className="text-slate-700">One measurable outcome.</p>
-                  <p className="text-slate-700">One responsibility.</p>
-                  <p className="text-slate-700">Something only you can deliver.</p>
+                  <p className="text-slate-700">Select one measurable outcome that helps us reach 30 clients.</p>
+                  <p className="text-slate-700 font-semibold">Not tasks.</p>
+                  <p className="text-slate-700 font-semibold">Not activity.</p>
+                  <p className="text-slate-700 font-semibold">A result.</p>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div className="flex items-baseline gap-4">
                   <span className="text-3xl font-black text-orange-500">2</span>
-                  <h3 className="text-2xl font-black text-slate-900">Execute Relentlessly</h3>
+                  <h3 className="text-2xl font-black text-slate-900">Execute and Track Daily</h3>
                 </div>
                 <div className="space-y-3 ml-16">
-                  <p className="text-slate-700">Your impact is tracked daily.</p>
-                  <p className="text-slate-700">The dashboard shows the truth.</p>
+                  <p className="text-slate-700">Update your progress.</p>
+                  <p className="text-slate-700">Use the dashboard.</p>
+                  <p className="text-slate-700">Measure your impact.</p>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div className="flex items-baseline gap-4">
                   <span className="text-3xl font-black text-orange-500">3</span>
-                  <h3 className="text-2xl font-black text-slate-900">We Hit 30</h3>
+                  <h3 className="text-2xl font-black text-slate-900">Reach 30 Clients</h3>
                 </div>
                 <div className="space-y-3 ml-16">
-                  <p className="text-slate-700">When the company wins,</p>
-                  <p className="text-slate-700">your 30% Salary Hike is applied.</p>
+                  <p className="text-slate-700">When ArkMedis reaches 30 active clients,</p>
+                  <p className="text-slate-700">your 30% salary increase is applied.</p>
                   <p className="text-2xl font-black text-orange-500 pt-2">Automatically.</p>
                 </div>
               </div>
@@ -132,61 +134,100 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Why Mission 30 Exists */}
+        {/* Why This Exists - Problem/Solution */}
         <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-4xl space-y-12">
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">Why Mission 30 Exists</h2>
+          <div className="mx-auto max-w-4xl space-y-16">
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">Why This Exists</h2>
+            
             <div className="space-y-12">
-              <div className="space-y-4">
-                <p className="text-slate-600 font-semibold">Because too many companies say:</p>
-                <div className="space-y-2 pl-6 border-l-4 border-slate-300">
-                  <p className="text-xl text-slate-600">"Work harder. We'll review later."</p>
+              {/* The Problem */}
+              <div className="space-y-6 pb-8 border-b border-slate-200">
+                <p className="text-lg text-slate-600 uppercase tracking-widest font-bold">The Problem</p>
+                <p className="text-2xl font-bold text-slate-900">Most companies make salary growth uncertain.</p>
+                <div className="space-y-4 ml-6 border-l-2 border-slate-200 pl-6">
+                  <p className="text-lg text-slate-700">You work hard.</p>
+                  <p className="text-lg text-slate-700">You wait for reviews.</p>
+                  <p className="text-lg text-slate-700">You hope for approval.</p>
                 </div>
               </div>
 
-              <div className="space-y-4 pt-8 border-t border-slate-200">
-                <p className="text-xl font-bold text-slate-900">We don't believe in "later."</p>
-                <p className="text-xl font-bold text-slate-900">We believe in alignment.</p>
+              {/* The Reality */}
+              <div className="space-y-6 pb-8 border-b border-slate-200">
+                <p className="text-lg text-slate-600 uppercase tracking-widest font-bold">At ArkMedis</p>
+                <p className="text-2xl font-bold text-slate-900">Growth is not based on politics or tenure.</p>
+                <p className="text-2xl font-bold text-orange-500 pt-2">It is based on measurable impact.</p>
               </div>
 
-              <div className="space-y-4 pt-4">
-                <div className="space-y-2">
-                  <p className="text-lg font-bold text-slate-900">Your execution</p>
-                  <p className="text-lg text-slate-600 ml-4">→ brings clients</p>
-                  <p className="text-lg text-slate-600 ml-8">→ builds the company</p>
-                  <p className="text-lg text-slate-600 ml-12">→ grows your salary.</p>
+              {/* The Solution */}
+              <div className="space-y-6">
+                <p className="text-lg text-slate-600 uppercase tracking-widest font-bold">The Solution</p>
+                <p className="text-lg text-slate-700">Salary growth should not be vague.</p>
+                <p className="text-lg text-slate-700">It should be tied to outcomes.</p>
+                <div className="space-y-4 mt-6 pt-6 border-t border-slate-200">
+                  <p className="text-lg text-slate-700">When the company grows because of your contribution,</p>
+                  <p className="text-lg text-slate-700">your income should grow with it.</p>
+                  <p className="text-xl font-bold text-orange-500 pt-4">Mission 30 aligns your effort with company growth.</p>
                 </div>
-              </div>
-
-              <div className="space-y-3 pt-8 border-t border-slate-200">
-                <p className="text-slate-900 font-bold">No politics.</p>
-                <p className="text-slate-900 font-bold">No favoritism.</p>
-                <p className="text-slate-900 font-bold">No hidden decisions.</p>
-                <p className="text-2xl font-black text-orange-500 pt-2">Only results.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* This Is Ownership */}
-        <section className="bg-gradient-to-br from-slate-950 to-slate-900 px-6 py-24">
+        {/* What Success Looks Like */}
+        <section className="bg-slate-50 px-6 py-24">
+          <div className="mx-auto max-w-4xl space-y-16">
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">What Success Looks Like</h2>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <span className="flex-shrink-0 text-2xl font-black text-orange-500">✓</span>
+                <div className="space-y-2">
+                  <p className="text-xl font-bold text-slate-900">30 active clients</p>
+                  <p className="text-slate-600">Across all 3 brands, operating consistently.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="flex-shrink-0 text-2xl font-black text-orange-500">✓</span>
+                <div className="space-y-2">
+                  <p className="text-xl font-bold text-slate-900">Stronger company stability</p>
+                  <p className="text-slate-600">Revenue scaling. Repeatable processes. Growth momentum.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="flex-shrink-0 text-2xl font-black text-orange-500">✓</span>
+                <div className="space-y-2">
+                  <p className="text-xl font-bold text-slate-900">30% higher salary for every core team member</p>
+                  <p className="text-slate-600">Applied automatically. No negotiation. No delay.</p>
+                </div>
+              </div>
+              <div className="pt-8 border-t border-slate-200 mt-8">
+                <p className="text-lg font-bold text-slate-900">Clear target. <span className="text-orange-500">Clear reward.</span></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Where We Stand */}
+        <section className="bg-white px-6 py-24">
           <div className="mx-auto max-w-4xl space-y-12">
-            <h2 className="text-4xl lg:text-5xl font-black text-white">This Is Ownership</h2>
-            <div className="space-y-8 text-white">
-              <div className="space-y-4">
-                <p className="text-lg">If we stay at 12 clients — nothing changes.</p>
-                <p className="text-lg">If we push to 30 — everything changes.</p>
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">Where We Stand</h2>
+            <div className="space-y-8">
+              <div className="bg-slate-50 rounded-lg border border-slate-200 p-8 space-y-4">
+                <div className="space-y-2">
+                  <p className="text-sm font-bold uppercase tracking-widest text-slate-600">Current Progress</p>
+                  <p className="text-4xl font-black text-slate-900">{COMPANY_MISSION.totalAchieved} <span className="text-slate-400">/ 30</span></p>
+                  <p className="text-lg text-slate-600">Clients Needed: <span className="font-bold">{COMPANY_MISSION.totalTarget - COMPANY_MISSION.totalAchieved}</span></p>
+                </div>
+                <div className="pt-4 border-t border-slate-200">
+                  <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-orange-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                  </div>
+                  <p className="text-sm text-slate-600 mt-2">{Math.round(progress)}% complete</p>
+                </div>
               </div>
 
-              <div className="space-y-4 pt-8 border-t border-slate-800">
-                <p className="text-lg font-bold">The mission is shared.</p>
-                <p className="text-lg font-bold">The reward is shared.</p>
-              </div>
-
-              <div className="space-y-4 pt-8 border-t border-slate-800">
-                <p className="text-lg font-bold text-orange-500">Your effort matters.</p>
-                <p className="text-lg font-bold text-orange-500">Your numbers matter.</p>
-                <p className="text-2xl font-black text-orange-500">You matter.</p>
+              <div className="space-y-4 pt-8 border-t border-slate-200">
+                <p className="text-lg text-slate-700">When we reach 30, we scale.</p>
+                <p className="text-lg text-slate-700">If we don't, nothing changes.</p>
               </div>
             </div>
           </div>
@@ -196,19 +237,27 @@ export default function HomePage() {
         <section className="bg-white px-6 py-24">
           <div className="mx-auto max-w-4xl text-center space-y-12">
             <h2 className="text-4xl lg:text-5xl font-black text-slate-900">
-              Ready To Build Your 30%?
+              Your Next Step
             </h2>
-            <div className="space-y-6 text-lg text-slate-600">
-              <p>Define your Power Move.</p>
-              <p>Execute daily.</p>
-              <p>Help us reach 30 clients.</p>
-              <p className="text-xl font-bold text-slate-900">And earn what you deserve.</p>
+            <div className="space-y-8 text-lg text-slate-600">
+              <div className="space-y-3">
+                <p className="text-xl font-bold text-slate-900">Define your Power Move.</p>
+              </div>
+              <div className="space-y-3">
+                <p className="text-xl font-bold text-slate-900">Track your execution.</p>
+              </div>
+              <div className="space-y-3">
+                <p className="text-xl font-bold text-slate-900">Help us reach 30.</p>
+              </div>
+              <div className="space-y-3 pt-4">
+                <p className="text-2xl font-black text-orange-500">Build your 30%.</p>
+              </div>
             </div>
             <Link
               href="/signin"
-              className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-12 py-5 text-lg font-bold text-white transition hover:bg-orange-600"
+              className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-12 py-5 text-lg font-bold text-white transition hover:bg-orange-600 hover:scale-105 active:scale-95"
             >
-              Build Your 30%
+              Get Started
             </Link>
           </div>
         </section>
