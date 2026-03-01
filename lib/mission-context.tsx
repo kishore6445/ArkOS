@@ -21,24 +21,24 @@ export const COMPANY_MISSION: CompanyMission = {
   name: "Mission 30",
   description: "Onboard and serve 30 clients across three brands",
   totalTarget: 30,
-  totalAchieved: 28, // 13 (Warrior) + 10 (Story) + 5 (Meta)
+  totalAchieved: 10, // 6 (Warrior) + 3 (Story) + 1 (Meta)
   brandBreakdown: [
     {
       name: "Warrior Systems",
       target: 18,
-      achieved: 13,
+      achieved: 6,
       color: "#1e40af",
     },
     {
       name: "Story Marketing",
       target: 6,
-      achieved: 10,
+      achieved: 3,
       color: "#7c3aed",
     },
     {
       name: "Meta Gurukul",
       target: 6,
-      achieved: 5,
+      achieved: 1,
       color: "#059669",
     },
   ],
