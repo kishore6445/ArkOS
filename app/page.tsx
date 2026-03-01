@@ -27,64 +27,59 @@ export default function HomePage() {
       </header>
 
       <main className="space-y-0">
-        {/* HERO - Your Growth Is Not Given. It Is Built. */}
+        {/* HERO - Increase Your Salary by 30% */}
         <section className="bg-gradient-to-br from-slate-950 to-slate-900 px-6 py-32">
           <div className="mx-auto max-w-4xl space-y-12">
             <div className="space-y-8">
               <div className="space-y-4">
-                <p className="text-orange-400 font-bold uppercase tracking-widest text-sm">No Politics. Only Results.</p>
+                <p className="text-orange-400 font-bold uppercase tracking-widest text-sm">Mission 30</p>
                 <h1 className="text-5xl lg:text-6xl font-black text-white leading-tight">
-                  Your Growth Is Not Given.
-                  <br />
-                  It Is Built.
+                  Increase Your Salary by 30%
                 </h1>
               </div>
-              <div className="space-y-8 text-lg text-slate-300">
-                <p className="text-xl text-slate-200">Define your Power Move. Execute daily. Help us reach 30 clients.</p>
-                <p className="text-xl font-semibold text-orange-300">And earn the 30% salary increase you deserve.</p>
-                <div className="pt-6 border-t border-slate-700">
-                  <p className="text-sm font-semibold text-orange-400">Progress: {COMPANY_MISSION.totalAchieved}/30 clients • {Math.round(progress)}% complete</p>
-                  <div className="mt-3 h-2 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
-                  </div>
+              <div className="space-y-6 text-lg text-slate-300">
+                <div className="space-y-3">
+                  <p>Most companies make salary growth uncertain.</p>
+                  <p>You work hard.</p>
+                  <p>You wait for reviews.</p>
+                  <p>You hope for approval.</p>
+                </div>
+                <div className="pt-4 border-t border-slate-700">
+                  <p className="text-lg font-bold text-orange-300">At ArkMedis, growth is not based on politics or tenure.</p>
+                  <p className="text-xl font-bold text-orange-500 pt-2">It is based on measurable impact.</p>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-4 pt-8 border-t border-slate-800">
-              <p className="text-sm text-slate-400 uppercase tracking-widest font-bold">The Guarantee</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div>
-                  <p className="text-lg text-slate-300 font-semibold">Not requested</p>
-                  <p className="text-xs text-slate-500 mt-1">No approval needed</p>
-                </div>
-                <div>
-                  <p className="text-lg text-slate-300 font-semibold">Not negotiated</p>
-                  <p className="text-xs text-slate-500 mt-1">It's the deal</p>
-                </div>
-                <div>
-                  <p className="text-lg text-slate-300 font-semibold">Not delayed</p>
-                  <p className="text-xs text-slate-500 mt-1">When we hit 30</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-black text-orange-500">Earned</p>
-                  <p className="text-xs text-slate-500 mt-1">By all of us</p>
-                </div>
+            <div className="pt-8 border-t border-slate-800">
+              <p className="text-sm font-semibold text-orange-400">Progress: {COMPANY_MISSION.totalAchieved}/30 clients • {Math.round(progress)}% complete</p>
+              <div className="mt-3 h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-full bg-orange-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* This Is The Deal */}
+        {/* The Goal */}
         <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-4xl space-y-16">
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">This Is The Deal</h2>
+          <div className="mx-auto max-w-4xl space-y-12">
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">The Goal</h2>
             <div className="space-y-8">
-              <div className="space-y-4">
-                <p className="text-2xl font-bold text-slate-900">We reach 30 active clients across 3 brands.</p>
-                <p className="text-2xl font-bold text-slate-900">You earn 30% more salary.</p>
+              <p className="text-2xl font-bold text-slate-900">Reach <span className="text-orange-500">30 active clients across 3 brands.</span></p>
+              
+              <div className="space-y-4 pt-8 border-t border-slate-200">
+                <p className="text-lg text-slate-700">When we reach 30 clients:</p>
               </div>
-              <p className="text-2xl font-black text-orange-500 pt-4">Simple.</p>
+
+              <div className="space-y-6 bg-slate-50 rounded-lg p-8">
+                <p className="text-2xl font-bold text-slate-900">Every core team member earns a <span className="text-orange-500">30% salary increase.</span></p>
+                <div className="space-y-3 pt-4 border-t border-slate-200">
+                  <p className="font-bold text-slate-900">Automatically.</p>
+                  <p className="font-bold text-slate-900">No negotiation.</p>
+                  <p className="font-bold text-slate-900">No approval loop.</p>
+                  <p className="font-bold text-slate-900">No delay.</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -134,40 +129,19 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Why This Exists - Problem/Solution */}
+        {/* Why This Exists */}
         <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-4xl space-y-16">
+          <div className="mx-auto max-w-4xl space-y-12">
             <h2 className="text-4xl lg:text-5xl font-black text-slate-900">Why This Exists</h2>
             
-            <div className="space-y-12">
-              {/* The Problem */}
-              <div className="space-y-6 pb-8 border-b border-slate-200">
-                <p className="text-lg text-slate-600 uppercase tracking-widest font-bold">The Problem</p>
-                <p className="text-2xl font-bold text-slate-900">Most companies make salary growth uncertain.</p>
-                <div className="space-y-4 ml-6 border-l-2 border-slate-200 pl-6">
-                  <p className="text-lg text-slate-700">You work hard.</p>
-                  <p className="text-lg text-slate-700">You wait for reviews.</p>
-                  <p className="text-lg text-slate-700">You hope for approval.</p>
-                </div>
-              </div>
-
-              {/* The Reality */}
-              <div className="space-y-6 pb-8 border-b border-slate-200">
-                <p className="text-lg text-slate-600 uppercase tracking-widest font-bold">At ArkMedis</p>
-                <p className="text-2xl font-bold text-slate-900">Growth is not based on politics or tenure.</p>
-                <p className="text-2xl font-bold text-orange-500 pt-2">It is based on measurable impact.</p>
-              </div>
-
-              {/* The Solution */}
-              <div className="space-y-6">
-                <p className="text-lg text-slate-600 uppercase tracking-widest font-bold">The Solution</p>
-                <p className="text-lg text-slate-700">Salary growth should not be vague.</p>
-                <p className="text-lg text-slate-700">It should be tied to outcomes.</p>
-                <div className="space-y-4 mt-6 pt-6 border-t border-slate-200">
-                  <p className="text-lg text-slate-700">When the company grows because of your contribution,</p>
-                  <p className="text-lg text-slate-700">your income should grow with it.</p>
-                  <p className="text-xl font-bold text-orange-500 pt-4">Mission 30 aligns your effort with company growth.</p>
-                </div>
+            <div className="space-y-8">
+              <p className="text-xl text-slate-700">Salary growth should not be vague.</p>
+              <p className="text-xl text-slate-700">It should be tied to outcomes.</p>
+              
+              <div className="space-y-6 pt-8 border-t border-slate-200">
+                <p className="text-lg text-slate-700">When the company grows because of your contribution,</p>
+                <p className="text-lg text-slate-700">your income should grow with it.</p>
+                <p className="text-2xl font-black text-orange-500 pt-4">Mission 30 aligns your effort with company growth.</p>
               </div>
             </div>
           </div>
@@ -233,25 +207,17 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Ready To Build Your 30% */}
-        <section className="bg-white px-6 py-24">
+        {/* Your Next Step */}
+        <section className="bg-slate-50 px-6 py-24">
           <div className="mx-auto max-w-4xl text-center space-y-12">
             <h2 className="text-4xl lg:text-5xl font-black text-slate-900">
               Your Next Step
             </h2>
-            <div className="space-y-8 text-lg text-slate-600">
-              <div className="space-y-3">
-                <p className="text-xl font-bold text-slate-900">Define your Power Move.</p>
-              </div>
-              <div className="space-y-3">
-                <p className="text-xl font-bold text-slate-900">Track your execution.</p>
-              </div>
-              <div className="space-y-3">
-                <p className="text-xl font-bold text-slate-900">Help us reach 30.</p>
-              </div>
-              <div className="space-y-3 pt-4">
-                <p className="text-2xl font-black text-orange-500">Build your 30%.</p>
-              </div>
+            <div className="space-y-6 text-lg">
+              <p className="text-xl font-bold text-slate-900">Define your Power Move.</p>
+              <p className="text-xl font-bold text-slate-900">Track your execution.</p>
+              <p className="text-xl font-bold text-slate-900">Help us reach 30.</p>
+              <p className="text-2xl font-black text-orange-500 pt-2">Build your 30%.</p>
             </div>
             <Link
               href="/signin"
